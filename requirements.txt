@@ -1,1 +1,19 @@
+pandas
+loguru
+torch==2.8.0
+torchvision
+transformers
+accelerate==1.11.0
+Pillow
+numpy
+opencv-python
+einops 
+av 
+open-clip-torch
+numpy<2
+decord 
+ffmpeg
+git+https://github.com/LLaVA-VL/LLaVA-NeXT.git
+dotenv
+# flash-attn --no-build-isolation --no-cache-dir
 katna
