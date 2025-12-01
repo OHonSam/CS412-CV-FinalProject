@@ -6,7 +6,7 @@ import dotenv
 config = dotenv.dotenv_values(".env")
 API_KEY = config.get("DRIVE_API_KEY", "YOUR_DRIVE_API_KEY_HERE")
 FOLDER_ID = "1RG218EwsMeV14DTKI-LHG7W87nrJ010q"
-DEST_DIR = "./videos"   # downloaded .mp4 files go here
+DEST_DIR = "./videos/test/had_data"   # downloaded .mp4 files go here
 # ==========================
 
 
