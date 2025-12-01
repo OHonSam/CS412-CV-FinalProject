@@ -4,7 +4,7 @@ import os
 
 VIDEO_FOLDER = "videos"
 OUTPUT_FOLDER = "keyframes"
-NUM_KEYFRAMES = 10
+NUM_KEYFRAMES = 5
 
 def extract_keyframes(video_path, output_path, num_keyframes):
     if not os.path.exists(video_path):
