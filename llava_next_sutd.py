@@ -1,16 +1,20 @@
-import av
-import torch
-import warnings
 from PIL import Image
 import numpy as np
 from llava.model.builder import load_pretrained_model
 from llava.mm_utils import tokenizer_image_token
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from llava.conversation import conv_templates
+from pathlib import Path    
+from argparse import ArgumentParser
+import glob
+import av
+import torch
+import warnings
 import copy
 import gc
-import av
-from pathlib import Path    
+import os
+import json
+from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -97,18 +101,13 @@ def choose_answer(
 
     # Determine number of choices and format accordingly
     num_choices = len(choices)
-    choice_letters = ['A', 'B', 'C', 'D'][:num_choices]
 
     # Format choices with letters
-    choices_text = "\n".join(choices)
+    choices_text = "\n".join([f"{i}. {choice}" for i, choice in enumerate(choices)])
 
     # Build letter options for instruction
-    if num_choices == 2:
-        letter_options = "A or B"
-    elif num_choices == 4:
-        letter_options = "A, B, C, or D"
-    else:
-        letter_options = " or ".join(choice_letters)
+    letter_options = ", ".join([str(i) for i in range(num_choices)])
+    choice_letters = [str(i) for i in range(num_choices)]
 
     # Prepare the optimized prompt for dashcam traffic scenarios
     full_question = (
@@ -120,14 +119,10 @@ def choose_answer(
         f"- Analyze the traffic signs, road markings, vehicle positions, and traffic conditions in the images\n"
         f"- Consider Vietnam traffic laws and road safety regulations\n"
         f"- Select the most appropriate answer based on the visual evidence\n"
-        f"- Respond with ONLY the letter ({letter_options}) of your chosen answer\n"
+        f"- Respond with ONLY the number ({letter_options}) of your chosen answer\n"
         f"- Do not provide explanations or additional text\n\n"
         f"Answer:"
     )
-
-    print(f"Full question prompt:\n{full_question}")
-    print(f"Number of keyframes: {len(images)}")
-    print(f"Number of choices: {num_choices}")
 
     # Build conversation
     conv_template = "qwen_1_5"
@@ -160,7 +155,6 @@ def choose_answer(
     # Decode response
     text_output = tokenizer.batch_decode(
         output_ids, skip_special_tokens=True)[0].strip()
-    print(f"Model response: {text_output}")
 
     # Clean up intermediate tensors to free GPU memory
     del video, input_ids, output_ids
@@ -188,6 +182,7 @@ def choose_answer(
     print("Warning: Could not parse answer from model output, returning default 0")
     return 0
 
+
 def read_video_pyav(container, indices):
     '''
     Decode the video with PyAV decoder.
@@ -210,38 +205,183 @@ def read_video_pyav(container, indices):
             frames.append(frame)
     return np.stack([x.to_ndarray(format="rgb24") for x in frames])
 
-if __name__ == "__main__":
-    # Example usage
 
-    question = "Trong video này, khi tiến đến gần vạch kẻ đường dành cho người đi bộ, người lái xe phải thực hiện hành động ưu tiên nào sau đây?"
-    choices = [
-                "A. Tăng tốc độ để nhanh chóng đi qua trước khi có người sang đường.",
-                "B. Giảm tốc độ, quan sát và sẵn sàng dừng lại nhường đường.",
-                "C. Bấm còi liên tục để cảnh báo người đi bộ không được qua đường.",
-                "D. Giữ nguyên tốc độ và chỉ dừng lại khi có người đã đi vào lòng đường."
-                ]
-
-    # Get parent directory of the script
-    script_dir = Path(__file__).parent
-    video_dir = script_dir.parent / "ZaloAIC"
-    # Construct video path relative to script directory
-    video_path = video_dir / "input" / "traffic_buddy_train+public_test" / "train/videos/0ad45230_447_clip_006_0031_0037_N.mp4"
+def extract_keyframes_from_video(video_path: str, num_frames: int = 8, temp_dir: str = "./temp_keyframes") -> list:
+    """Extract keyframes from video and save temporarily.
+    
+    Args:
+        video_path (str): Path to video file
+        num_frames (int): Number of frames to extract
+        temp_dir (str): Directory to save temporary keyframes
+        
+    Returns:
+        list: List of keyframe paths
+    """
+    os.makedirs(temp_dir, exist_ok=True)
+    
     container = av.open(video_path)
-
     total_frames = container.streams.video[0].frames
-    indices = np.arange(0, total_frames, total_frames / 8).astype(int)
+    indices = np.arange(0, total_frames, total_frames / num_frames).astype(int)
     clip = read_video_pyav(container, indices)
-
+    
     keyframes = []
+    video_name = Path(video_path).stem
+    
     for i, frame in enumerate(clip):
         img = Image.fromarray(frame)
-        img_path = f"keyframe_{i}.png"
+        img_path = os.path.join(temp_dir, f"{video_name}_frame_{i}.png")
         img.save(img_path)
         keyframes.append(img_path)
+    
+    container.close()
+    return keyframes
 
-    # Inference
-    answer_index = choose_answer(
-        question=question,
-        choices=choices,
-        keyframes=keyframes,
+
+def process_dataset(video_dir: str, questions_path: str, output_dir: str, num_frames: int = 8):
+    """Process all videos in dataset and generate answers.
+    
+    Args:
+        video_dir (str): Directory containing videos
+        questions_path (str): Path to questions JSON file
+        output_dir (str): Directory to save output
+        num_frames (int): Number of frames to extract per video
+    """
+    # Load questions
+    with open(questions_path, 'r', encoding='utf-8') as f:
+        questions_data = json.load(f)
+    
+    # Get mode from video_dir path
+    mode = Path(video_dir).name
+    
+    # Prepare output
+    results = []
+    temp_dir = os.path.join(output_dir, "temp_keyframes")
+    os.makedirs(temp_dir, exist_ok=True)
+    
+    # Process each video
+    print(f"Processing {len(questions_data)} videos...")
+    
+    for item in tqdm(questions_data, desc=f"Processing {mode} dataset"):
+        vid_filename = item['vid_filename']
+        q_body = item['q_body']
+        choices = [item['option0'], item['option1'], item['option2'], item['option3']]
+        
+        # Construct video path
+        video_path = os.path.join(video_dir, vid_filename)
+        
+        if not os.path.exists(video_path):
+            print(f"Warning: Video not found: {video_path}")
+            results.append({
+                "filename": vid_filename,
+                "answer": "0"  # Default answer
+            })
+            continue
+        
+        try:
+            # Extract keyframes
+            keyframes = extract_keyframes_from_video(video_path, num_frames, temp_dir)
+            
+            # Get answer
+            answer_index = choose_answer(
+                question=q_body,
+                choices=choices,
+                keyframes=keyframes
+            )
+            
+            # Map index to letter
+            answer_letter = ['A', 'B', 'C', 'D'][answer_index]
+            
+            # Add to results
+            results.append({
+                "filename": vid_filename,
+                "answer": answer_letter
+            })
+            
+            # Clean up temporary keyframes
+            for keyframe in keyframes:
+                if os.path.exists(keyframe):
+                    os.remove(keyframe)
+                    
+        except Exception as e:
+            print(f"Error processing {vid_filename}: {e}")
+            results.append({
+                "filename": vid_filename,
+                "answer": "0"  # Default answer on error
+            })
+    
+    # Save results
+    output_file = os.path.join(output_dir, f"{mode}_answer.json")
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    
+    print(f"Results saved to {output_file}")
+    print(f"Processed {len(results)} videos")
+    
+    # Clean up temp directory
+    if os.path.exists(temp_dir):
+        os.rmdir(temp_dir)
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser(
+        description="Process video dataset and generate answers using LLaVA-NeXT."
     )
+    parser.add_argument(
+        "--video_dir", 
+        type=str, 
+        required=True, 
+        help="Path to the input video directory (e.g., ./HAD/videos/test/)"
+    )
+    parser.add_argument(
+        "--questions_path", 
+        type=str, 
+        required=True, 
+        help="Path to the questions JSON file (e.g., ./HAD/questions/test.json)"
+    )
+    parser.add_argument(
+        "--output_dir", 
+        type=str, 
+        default="./output/", 
+        help="Path to the output directory"
+    )
+    parser.add_argument(
+        "--num_frames",
+        type=int,
+        default=8,
+        help="Number of frames to extract from each video (default: 8)"
+    )
+    
+    args = parser.parse_args()
+    
+    # Create output directory
+    os.makedirs(args.output_dir, exist_ok=True)
+    
+    # Process dataset
+    process_dataset(
+        video_dir=args.video_dir,
+        questions_path=args.questions_path,
+        output_dir=args.output_dir,
+        num_frames=args.num_frames
+    )
+
+
+# # For test set
+# python llava_next.py \
+#     --video_dir ./HAD/videos/test/ \
+#     --questions_path ./HAD/questions/test.json \
+#     --output_dir ./HAD/outputs/ \
+#     --num_frames 8
+
+# # For validation set
+# python llava_next.py \
+#     --video_dir ./HAD/videos/val/ \
+#     --questions_path ./HAD/questions/val.json \
+#     --output_dir ./HAD/outputs/ \
+#     --num_frames 8
+
+# # For train set
+# python llava_next.py \
+#     --video_dir ./HAD/videos/train/ \
+#     --questions_path ./HAD/questions/train.json \
+#     --output_dir ./HAD/outputs/ \
+#     --num_frames 8

@@ -5,8 +5,9 @@ import dotenv
 # ========= CONFIG =========
 config = dotenv.dotenv_values(".env")
 API_KEY = config.get("DRIVE_API_KEY", "YOUR_DRIVE_API_KEY_HERE")
-FOLDER_ID = "1RG218EwsMeV14DTKI-LHG7W87nrJ010q"
-DEST_DIR = "./videos/test/had_data"   # downloaded .mp4 files go here
+FOLDER_ID = "177LF1vytnslJ5NFd1kkmsUuvxVEEYhqj"
+DEST_DIR = "./SUTD/questions/"   # downloaded files go here
+EXTENSION = ".jsonl"
 # ==========================
 
 
@@ -57,10 +58,10 @@ if __name__ == "__main__":
     files = list_all_files(FOLDER_ID, API_KEY)
 
     print(f"Total files found: {len(files)}")
-    mp4_files = [f for f in files if f["name"].lower().endswith(".mp4")]
-    print(f"Total .mp4 videos: {len(mp4_files)}\n")
+    specific_type_files = [f for f in files if f["name"].lower().endswith(EXTENSION)]
+    print(f"Total files: {len(specific_type_files)}\n")
 
-    for f in mp4_files:
+    for f in specific_type_files:
         print("Downloading:", f["name"])
         try:
             download_file(f["id"], f["name"], API_KEY, DEST_DIR)
