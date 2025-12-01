@@ -1,27 +1,34 @@
 # CS412-CV-FinalProject
 
 ## Project Hierarchy
-root/
-    keyframes/
-        train/
-            HAD/
-            SGTU/
-        test/
-            HAD/
-            SGTU/
-        val/
-            HAD/
-            SGTU/
-    videos/
-        train/
-            HAD/
-            SGTU/
-        test/
-            HAD/
-            SGTU/
-        val/
-            HAD/
-            SGTU/
+root/  
+├── HAD/  
+│   ├── outputs/  
+│   │   ├── train/  
+│   │   ├── test/  
+│   │   └── val/  
+│   ├── keyframes/  
+│   │   ├── train/  
+│   │   ├── test/  
+│   │   └── val/  
+│   └── videos/  
+│       ├── train/  
+│       ├── test/  
+│       └── val/  
+├── SGTU/  
+│   ├── outputs/  
+│   │   ├── train/  
+│   │   ├── test/  
+│   │   └── val/  
+│   ├── keyframes/  
+│   │   ├── train/  
+│   │   ├── test/  
+│   │   └── val/  
+│   └── videos/  
+│       ├── train/  
+│       ├── test/  
+│       └── val/  
+
 
 > Reason: Unified processing since we always process all datasets together and they share the same exact format.
 
