@@ -1,5 +1,39 @@
 # CS412-CV-FinalProject
 
+## Project Hierarchy
+root/
+    keyframes/
+        train/
+            HAD/
+            SGTU/
+        test/
+            HAD/
+            SGTU/
+        val/
+            HAD/
+            SGTU/
+    videos/
+        train/
+            HAD/
+            SGTU/
+        test/
+            HAD/
+            SGTU/
+        val/
+            HAD/
+            SGTU/
+    output/
+        train/
+            HAD/
+            SGTU/
+        test/
+            HAD/
+            SGTU/
+        val/
+            HAD/
+            SGTU/
+> Reason: Unified processing since we always process all datasets together and they share the same exact format.
+
 ## Get Google Drive API Key
 1. Go to https://console.developers.google.com/
 2. Create a new project.
