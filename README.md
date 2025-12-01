@@ -1,6 +1,12 @@
 # CS412-CV-FinalProject
 
-## 
+## Get Google Drive API Key
+1. Go to https://console.developers.google.com/
+2. Create a new project.
+3. Navigate to "APIs & Services" > "Credentials".
+4. Click on "Create Credentials" and select "API Key".
+5. Select "Restrict Key" and enable "Google Drive API".
+6. Copy the generated API key.
 
 ## VideoLLava Issues
 - Original VideoLLava has repetitive and irrelevant responses when handling video input.
