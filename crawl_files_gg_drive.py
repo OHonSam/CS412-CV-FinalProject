@@ -5,9 +5,9 @@ import dotenv
 # ========= CONFIG =========
 config = dotenv.dotenv_values(".env")
 API_KEY = config.get("DRIVE_API_KEY", "YOUR_DRIVE_API_KEY_HERE")
-FOLDER_ID = "177LF1vytnslJ5NFd1kkmsUuvxVEEYhqj"
-DEST_DIR = "./SUTD/questions/"   # downloaded files go here
-EXTENSION = ".jsonl"
+FOLDER_ID = "11i2cnE3jRAap-TXeQn63-UkALORL1NhA"
+DEST_DIR = "./SUTD/videos/"   # downloaded files go here
+EXTENSION = ".zip"
 # ==========================
 
 

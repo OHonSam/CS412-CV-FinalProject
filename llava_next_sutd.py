@@ -6,7 +6,9 @@ from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from llava.conversation import conv_templates
 from pathlib import Path    
 from argparse import ArgumentParser
-import glob
+from tqdm import tqdm
+from src.extract_keyframes import extract_keyframes
+import pandas as pd
 import av
 import torch
 import warnings
@@ -14,7 +16,6 @@ import copy
 import gc
 import os
 import json
-from tqdm import tqdm
 
 warnings.filterwarnings("ignore")
 
@@ -25,7 +26,7 @@ _tokenizer = None
 _image_processor = None
 
 
-def _load_model():
+def _load_model(device: str = "cuda:0"):
     """Load the LLaVA-Video model (singleton pattern).
 
     Model is kept in memory across multiple video processing for efficiency.
@@ -36,14 +37,14 @@ def _load_model():
         print("Loading LLaVA-Video model...")
         pretrained = "lmms-lab/LLaVA-Video-7B-Qwen2"
         model_name = "llava_qwen"
-        device_map = "auto"
+        device_map = {"": device}
 
         _tokenizer, _model, _image_processor, max_length = load_pretrained_model(
             pretrained,
             None,
             model_name,
             torch_dtype="bfloat16",
-            device_map=device_map
+            device_map=device_map,
         )
         _model.eval()
         print("LLaVA-Video model loaded successfully")
@@ -58,7 +59,8 @@ def choose_answer(
     top_k_frames: list = None,
     relevant_law_sections: list = None,
     keyframe_descriptions: list = None,
-    output_path: str = None
+    output_path: str = None,
+    device: str = "cuda:0"
 ) -> int:
     """Choose the best answer index based on provided information.
 
@@ -75,7 +77,7 @@ def choose_answer(
         int: Index of the selected answer choice.
     """
     # Load model
-    tokenizer, model, image_processor = _load_model()
+    tokenizer, model, image_processor = _load_model(device=device)
 
     # Load images from keyframe paths
     images = []
@@ -95,8 +97,9 @@ def choose_answer(
     video_frames = np.stack(images)
 
     # Preprocess frames
+    device_obj = torch.device(device)
     video = image_processor.preprocess(video_frames, return_tensors="pt")[
-        "pixel_values"].cuda().bfloat16()
+        "pixel_values"].to(device_obj).bfloat16()
     video = [video]
 
     # Determine number of choices and format accordingly
@@ -237,7 +240,7 @@ def extract_keyframes_from_video(video_path: str, num_frames: int = 8, temp_dir:
     return keyframes
 
 
-def process_dataset(video_dir: str, questions_path: str, output_dir: str, num_frames: int = 8):
+def process_dataset(video_dir: str, questions_path: str, output_dir: str, num_frames: int = 8, katna_extraction: bool = False, device: str = "cuda:0"):
     """Process all videos in dataset and generate answers.
     
     Args:
@@ -247,14 +250,30 @@ def process_dataset(video_dir: str, questions_path: str, output_dir: str, num_fr
         num_frames (int): Number of frames to extract per video
     """
     # Load questions
+    questions_data = []
+    
     with open(questions_path, 'r', encoding='utf-8') as f:
-        questions_data = json.load(f)
+        for line_num, line in enumerate(f):
+            if line.strip():
+                try:
+                    data = json.loads(line)
+                    if line_num == 0 and isinstance(data, list) and data[0] == "record_id":
+                        print(f"Skipping header: {data}")
+                        continue
+                    questions_data.append(data)
+                except json.JSONDecodeError as e:
+                    print(f"Warning: Failed to parse line {line_num}: {e}")
+                    continue
     
     # Get mode from video_dir path
     mode = Path(video_dir).name
     
     # Prepare output
-    results = []
+    file_names = []
+    answers = []
+    record_ids = []
+    validity_flags = []
+
     temp_dir = os.path.join(output_dir, "temp_keyframes")
     os.makedirs(temp_dir, exist_ok=True)
     
@@ -262,64 +281,79 @@ def process_dataset(video_dir: str, questions_path: str, output_dir: str, num_fr
     print(f"Processing {len(questions_data)} videos...")
     
     for item in tqdm(questions_data, desc=f"Processing {mode} dataset"):
-        vid_filename = item['vid_filename']
-        q_body = item['q_body']
-        choices = [item['option0'], item['option1'], item['option2'], item['option3']]
+        record_id = item[0]
+        vid_filename = item[2]
+        q_body = item[4]
+        choices = [item[5], item[6], item[7], item[8]]
         
         # Construct video path
         video_path = os.path.join(video_dir, vid_filename)
         
         if not os.path.exists(video_path):
             print(f"Warning: Video not found: {video_path}")
-            results.append({
-                "filename": vid_filename,
-                "answer": "0"  # Default answer
-            })
+            record_ids.append(record_id)
+            file_names.append(vid_filename)
+            answers.append("0")  # Default answer for missing video
+            validity_flags.append(False)
             continue
         
         try:
             # Extract keyframes
-            keyframes = extract_keyframes_from_video(video_path, num_frames, temp_dir)
+            if katna_extraction:
+                keyframes = extract_keyframes(
+                    video_path,
+                    output_path=temp_dir,
+                    num_keyframes=num_frames
+                )
+            else:
+                keyframes = extract_keyframes_from_video(video_path, num_frames, temp_dir)
             
             # Get answer
             answer_index = choose_answer(
                 question=q_body,
                 choices=choices,
-                keyframes=keyframes
+                keyframes=keyframes,
+                device=device
             )
-            
-            # Map index to letter
-            answer_letter = ['A', 'B', 'C', 'D'][answer_index]
+
+            answer_letter = str(answer_index)
             
             # Add to results
-            results.append({
-                "filename": vid_filename,
-                "answer": answer_letter
-            })
+            record_ids.append(record_id)
+            file_names.append(vid_filename)
+            answers.append(answer_letter)
+            validity_flags.append(True)
             
             # Clean up temporary keyframes
-            for keyframe in keyframes:
-                if os.path.exists(keyframe):
-                    os.remove(keyframe)
+            if not katna_extraction:
+                for keyframe in keyframes:
+                    if os.path.exists(keyframe):
+                        os.remove(keyframe)
                     
         except Exception as e:
             print(f"Error processing {vid_filename}: {e}")
-            results.append({
-                "filename": vid_filename,
-                "answer": "0"  # Default answer on error
-            })
+            record_ids.append(record_id)
+            file_names.append(vid_filename)
+            answers.append("0")  # Default answer on error
+            validity_flags.append(False)
     
     # Save results
-    output_file = os.path.join(output_dir, f"{mode}_answer.json")
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
+    output_file = os.path.join(output_dir, f"{mode}_answer.csv")
+    df = pd.DataFrame({
+        "record_id": record_ids,
+        "file_name": file_names,
+        "answer": answers,
+        "validity": validity_flags
+    })
+    df.to_csv(output_file, index=False)
     
     print(f"Results saved to {output_file}")
-    print(f"Processed {len(results)} videos")
+    print(f"Processed {len(file_names)} videos")
     
     # Clean up temp directory
-    if os.path.exists(temp_dir):
-        os.rmdir(temp_dir)
+    if not katna_extraction:
+        if os.path.exists(temp_dir):
+            os.rmdir(temp_dir)
 
 
 if __name__ == "__main__":
@@ -350,6 +384,17 @@ if __name__ == "__main__":
         default=8,
         help="Number of frames to extract from each video (default: 8)"
     )
+    parser.add_argument(
+        "--katna_extraction",
+        action="store_true",
+        help="Use Katna for keyframe extraction"
+    )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="cuda:0",
+        help="Device to run the model on (default: cuda)"
+    )
     
     args = parser.parse_args()
     
@@ -361,16 +406,14 @@ if __name__ == "__main__":
         video_dir=args.video_dir,
         questions_path=args.questions_path,
         output_dir=args.output_dir,
-        num_frames=args.num_frames
+        num_frames=args.num_frames,
+        katna_extraction=args.katna_extraction,
+        device=args.device
     )
 
 
 # # For test set
-# python llava_next.py \
-#     --video_dir ./HAD/videos/test/ \
-#     --questions_path ./HAD/questions/test.json \
-#     --output_dir ./HAD/outputs/ \
-#     --num_frames 8
+# python llava_next.py --video_dir ./HAD/videos/ --questions_path ./HAD/questions/test.json --output_dir ./HAD/outputs/ --device cuda:0 --katna_extraction --num_frames 8
 
 # # For validation set
 # python llava_next.py \

@@ -1,0 +1,1374 @@
+[
+  {
+    "video_id": "test0029.mp4",
+    "QA": {
+      "q": "Can you describe the behavior of the ego-car when a pedestrian crosses the road quickly?",
+      "a": "While driving straight, the ego-car suddenly slowed down and came to a complete stop at the crosswalk due to a pedestrian crossing quickly in front. Once the pedestrian safely crossed the road, the car then resumed its journey, continuing to drive straight ahead."
+    }
+  },
+  {
+    "video_id": "train1874.mp4",
+    "QA": {
+      "q": "What was the driving situation like, and how did the ego-car maneuver the road?",
+      "a": "The ego-car was speeding down a slightly curved street towards the left. To maintain its path, the car had to keep adjusting its wheel to the left side, even more towards the deep curve at the last minute. No particular road events were observed."
+    }
+  },
+  {
+    "video_id": "train3501.mp4",
+    "QA": {
+      "q": "Can you describe the behavior and movements of the ego-car at the intersection?",
+      "a": "The ego-car was stationary for a significant period due to a traffic jam. When the congestion cleared and the traffic signal turned green, the car proceeded straight through the intersection without any obstructions, as there were no pedestrians. Throughout this period, the car maintained a controlled speed and adjusted its course as needed to safely pass through the T-intersection."
+    }
+  },
+  {
+    "video_id": "test0856.mp4",
+    "QA": {
+      "q": "Can you describe the current positioning and movement of the ego-car in relation to its surroundings?",
+      "a": "The ego-car is currently stationary, perfectly positioned in a street parking spot. It's alongside a bicycle lane and the main driving lane. The car is not in motion and stays perfectly still during this time, with the wheels securely fixed, maintaining a steady angle."
+    }
+  },
+  {
+    "video_id": "test0438.mp4",
+    "QA": {
+      "q": "Can you describe the sequence of events during the drive?",
+      "a": "During the drive, a car failed to make a full stop at a stop sign, which initiated an act of caution. Our ego-car came to a halt due to the sign and again for a car crossing in front of us. We then proceeded to pass an intersection and halted again for congestion caused due to cars waiting for the signal. This whole sequence took place under various indicators including a stop sign, crossing vehicle and a red light alerting heavy traffic congestion."
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "Were there other vehicles on the road during this time?",
+      "a": "Yes, there were other vehicles on the road. There was a vehicle crossing our path between the 6th and 13th second why we were driving."
+    }
+  },
+  {
+    "video_id": "test0530.mp4",
+    "QA": {
+      "q": "Can you describe the driving conditions and maneuver the ego-car performs during this scenario?",
+      "a": "The scene is quite busy with people on the road behind their vehicles and cars backing up which might indicate a traffic situation or an accident. The ego-car adapts to the situation by quickly making a left turn, and despite the crowd, it avoids deceleration. Without further ado, the car confidently takes a right turn, a swift maneuver to possibly avoid any obstacle or manage in the situation. Even after these turns, the car maintains its pace and continues down the road. Its confident moves indicate the driver's proactive approach towards dealing with unexpected road events. The car remains steady and assured throughout the encounter."
+    }
+  },
+  {
+    "video_id": "train2966.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario observed over this brief duration through a residential area?",
+      "a": "Our ego-car started progressing through a residential neighborhood that provided designated bike lanes. Initially, we encountered some traffic congestion, which compelled us to pause momentarily. Once cleared, we continued, only to halt again at a stop sign. After stopping for the sign, we smoothly negotiated a T-intersection. Later, we continued down this road, maintaining a steady pace while correctly navigating a pedestrian crosswalk. Despite the pauses, the ego-car's overall progress remained consistent."
+    }
+  },
+  {
+    "video_id": "train1645.mp4",
+    "QA": {
+      "q": "Can you describe the sequentially notable events during this drive apart from the usual road occurrences?",
+      "a": "During this drive, our ego-car was passing an intersection and noticed a pedestrian near our lane. Shortly after, a vehicle cut in front of us. Towards the end of the drive, we had to come to a stop due to an upcoming red light. This was further necessitated by the development of congestion in our vicinity.\n"
+    }
+  },
+  {
+    "video_id": "test0009.mp4",
+    "QA": {
+      "q": "Can you briefly describe the route and actions of the ego-car during the recent driving scenario?",
+      "a": "The ego-car was moving along a residential street when it encountered a red light. The initial drive was smooth as the car maintained a steady pace. However, it seemed that there was some congestion on the road ahead, causing the ego-car to gradually slow down and eventually come to a full stop to accommodate the situation. The car remained stationary at the red light for the remainder of the observed time period."
+    }
+  },
+  {
+    "video_id": "test0955.mp4",
+    "QA": {
+      "q": "How is the ego-car maneuvering through this driving scenario without road events affecting it?",
+      "a": "The ego-car initially makes a right turn at the beginning of the scenario, navigating the turn successfully with an increased turn rate and a slowed pace for safety. It then continues to drive straight for a while, maintaining a steady and slightly increased pace. Towards the end of the scenario, the car approaches and successfully passes through a T intersection, slowing down marginally to ensure a safe passage."
+    }
+  },
+  {
+    "video_id": "test0353.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario of the ego-car in the given situation?",
+      "a": "The ego-car is driving smoothly on the street when it suddenly has to stop due to a sign. After some time, the ego-car starts again and crosses the vehicle waiting at the intersection. It continues to drive, making a turn to the right. Upon this, it again has to stop due to another vehicle crossing. Finally, the journey of the ego-car ends behind another car that is signaling and making a left turn, creating congestion on the road. This causes our car to stop one more time before continuing on its path."
+    }
+  },
+  {
+    "video_id": "train1634.mp4",
+    "QA": {
+      "q": "What was the need for our car to come to a complete stop during the drive?",
+      "a": "Sure, the car had to stop during the drive due to a congestion caused by a red light at the intersection. The car we were following came to a stop as well, prompting our ego-car to cease movement in response to the unexpected congestion."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "Did our car slow down drastically anytime during these observations?",
+      "a": "Our car did not experience a drastic reduction in speed. However, it did decrease its speed slightly as it navigated the right turn - a typical response for safety. After the turn, speed gradually increased back."
+    }
+  },
+  {
+    "video_id": "test1385.mp4",
+    "QA": {
+      "q": "I am curious, did the car hold its brakes abruptly?",
+      "a": "In response to the changing traffic light and the pedestrians crossing, the car didn't slam on the brakes abruptly, but rather reduced speed gradually to ensure a safe and comfortable stop."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "And what did I do when I encountered congestion?",
+      "a": "When you encountered the congestion, you stopped your car in response."
+    }
+  },
+  {
+    "video_id": "train2845.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation as per the information presented?",
+      "a": "The ego-car is driving under poor lighting conditions with numerous parked vehicles around and a few moving in the parking area. The driving maneuver includes approaching the parking area, stopping, and then moving right and further left to follow the roadway. During this time, the ego-car makes a mindful right turn, passes a crosswalk and stops in response to a sign. In the last moment, the car takes note of a crossing vehicle. So, the journey involves some significant changes in movement to navigate the area and obey street signs."
+    }
+  },
+  {
+    "video_id": "train0663.mp4",
+    "QA": {
+      "q": "Can you describe the ego-car's journey over this period?",
+      "a": "Initially, our ego-car was forced to stop due to a congestion on the road with vehicles coming to a standstill in front of it and vehicles driving from the opposite direction. After a while, when the congestion eased, the car started moving forward in a straight line gradually building up its speed. Its pace became somewhat constant for a while before making a distinct dip. As our journey neared its end, the car made a decisive maneuver to the left. This left turn was done with an intention of progressing towards a specific direction."
+    }
+  },
+  {
+    "video_id": "train1157.mp4",
+    "QA": {
+      "q": "Could you describe the driving scenario observed by the AI visual assistant?",
+      "a": "While driving, the ego-car spots a yellow light, causing it to slowly begin deceleration. The light soon turns red, signalling the ego-car to come to a complete halt. Simultaneously, attention was drawn towards a pedestrian crossing, prompting the car to yield. Apart from this, another vehicle was also reported crossing, amplifying the need for the stop. The car remained stationary, allowing safe passage for the pedestrian and the crossing vehicle. After the crosswalk was clear, the ego-car inched forward a bit but continued to be stationary due to the red light."
+    }
+  },
+  {
+    "video_id": "train4063.mp4",
+    "QA": {
+      "q": "Can you describe the driving conditions the ego-car encountered and how it reacted?",
+      "a": "Initially, our car was proceeding at a normal speed and then it went straight through an intersection. Seeing red lights and congestion ahead, the car started to slow down to avoid those cars standing ahead. Eventually, our car came to a complete stop due to the heavy congestion."
+    }
+  },
+  {
+    "video_id": "train1091.mp4",
+    "QA": {
+      "q": "Has our driving speed been affected due to the rain?",
+      "a": "It's difficult to say definitively, as the driving speed can be influenced by many factors including weather, traffic conditions, road layout, and even driver's personal preference. However, we did decrease our speed initially."
+    }
+  },
+  {
+    "video_id": "train3030.mp4",
+    "QA": {
+      "q": "Can you describe the circumstances of the driving scene and the actions taken by the ego-car?",
+      "a": "The scene comprised of lots of parked cars on either side and numerous pedestrians walking around. The ego-car was initially navigating out of a parking lot via a right turn and encountered a pedestrian crossing early on. Midway, it had to react to a stop sign that was noticed. Following that, it proceeded to execute a right turn. Throughout these events, the car had to continuously adjust its speed and path alignment to safely navigate the situations."
+    }
+  },
+  {
+    "video_id": "train4175.mp4",
+    "QA": {
+      "q": "Could you describe the encountered situations on the road during the drive?",
+      "a": "Our journey started by taking a purposeful turn to the right, gradually easing off the accelerator for smoother movement. Later, as we progressed down the road, it began curving to the right which required a gentle adjustment of direction. Most importantly, between the journey, we noticed a pedestrian crossing ahead of us. This required us to slow down considerably to ensure their safety while they crossed. After ensuring a safe passage for the pedestrian, we resumed our speed steadily."
+    }
+  },
+  {
+    "video_id": "train0308.mp4",
+    "QA": {
+      "q": "Was the drive consistent and smooth considering the mentioned traffic events?",
+      "a": "Yes, despite the traffic condition and the need to pass through an intersection and later a T-intersection, the drive was smooth and consistent. I ensured we kept a steady pace and carefully maneuvered at each intersection to ensure safety."
+    }
+  },
+  {
+    "video_id": "train1007.mp4",
+    "QA": {
+      "q": "Could you describe the driving scenario and behaviors of the ego-car during the journey?",
+      "a": "The ego-car approached a three-way stop, presumably instructed by a sign, causing it to decelerate. A vehicle was observed crossing the path, capturing the attention of the ego-car, but it didn't impede the journey. Eventually, the ego-car made a left-hand turn at the three-way intersection. Throughout this event, it's observed that the ego-car's speed was reduced, especially at the stop sign and during the turn. The vehicle's direction also changed, most likely on a curvature, aligning with the left turn. The movements suggest comprehensive awareness and adaptability to the road conditions and events encountered."
+    }
+  },
+  {
+    "video_id": "train0431.mp4",
+    "QA": {
+      "q": "Given an extra lane on the right side, how might have your passage through the third intersection differed from your current actions?",
+      "a": "With an extra lane on the right, I could have maintained my lane while still giving space for the merging vehicle. This would allow more flexibility in my maneuvers, possibly helping to keep a more consistent speed, and perhaps making my turning angles less drastic."
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "Did your car make any turns during this drive?",
+      "a": "Yes, our car made a right turn around the 12th to 14th second range."
+    }
+  },
+  {
+    "video_id": "train2277.mp4",
+    "QA": {
+      "q": "Could you describe the driving scenario and occurrences observed during this journey?",
+      "a": "The ego-car is driving down a street when it encounters a pedestrian crossing from the 6th to 10th second of the journey and then a vehicle crosses its path from the 8th to the 13th second. It goes up to a stop sign during the 12th to the 14th second where it briefly halts. After the sign has been acknowledged, the car makes a right turn starting from the 15th second and continues in this direction. Over the course of these events, the ego-car skillfully adjusts its pace and trajectory to ensure smooth navigation and safety on the route."
+    }
+  },
+  {
+    "video_id": "train3813.mp4",
+    "QA": {
+      "q": "Did the ego-car actually come to a complete stop during this congestion, or did it maintain slow movement?",
+      "a": "The ego-car completely stopped during the traffic congestion."
+    }
+  },
+  {
+    "video_id": "train4144.mp4",
+    "QA": {
+      "q": "Can you describe the series of events while on the road in this particular driving situation?",
+      "a": "The driving scenario consists of the ego-car in an environment with traffic lights and surrounding cars. Firstly, the driver enters a T-intersection, securely positioning the car to move smoothly through it. Following that, the driver approaches a right-hand turn on the road, steadily decreasing the car's speed anticipating the turn. During the execution of the turn, the driver skillfully pivots the car to the right at a safe and controlled pace. After rounding the corner, the driver straightens the vehicle and gradually picks up speed again, navigating straight in the aftermath of the right turn."
+    }
+  },
+  {
+    "video_id": "test1013.mp4",
+    "QA": {
+      "q": "Can you describe the location and events the ego-car focused on during the most recent drive?",
+      "a": "The ego-car stopped at an intersection due to a red traffic signal. During this time, it observed crossing vehicles at a couple of instances. The first was seen earlier into the halt, and the second was noticed a bit later. In addition to this, a vehicle was noticed merging into the traffic for a brief period. The ego-car also identified a pedestrian crossing the road later into the halt. Throughout this duration, the ego-car retained its position sternly without any shifts or movement due to the red light."
+    }
+  },
+  {
+    "video_id": "train1091.mp4",
+    "QA": {
+      "q": "Can you describe how the vehicle has been navigating overtime?",
+      "a": "The vehicle has started out almost maintaining its direction with only a little diversion. But eventually, it started deviating a bit more towards one side, maybe due to road conditions. After a while, the deviation was minimized and it maintained a fair consistency with a slight inclination towards one side throughout the remaining time. "
+    }
+  },
+  {
+    "video_id": "train2262.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation for the ego-car along the boulevard during this period of time?",
+      "a": "The ego-car was initially passing through an intersection on a boulevard. During this time, the car navigated through various parked cars and dealt with a hump on the road. The road conditions led to a fluctuation in speed. Later on, the car's path involved maneuvering around a small island within the road, followed by another passage through an intersection. The speed adjustments and precise maneuvers suggest careful handling of the car during this stretch of the journey."
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "Can you describe the change of the car's movement during the right turn?",
+      "a": "Sure, during the right turn, the car's direction was dramatically adjusted with the shift in path, and then our car's speed gradually increased after the turn."
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "How did the car react to the crossing vehicle?",
+      "a": "The ego-car reacted to the crossing vehicle by slowing down its speed, ensuring a safe distance, and then continued at an increased pace after the vehicle had crossed.\n"
+    }
+  },
+  {
+    "video_id": "test0131.mp4",
+    "QA": {
+      "q": "Could you briefly describe the driving scenario the ego-car experienced, including any notable occurrences or changes in driving behavior?",
+      "a": "The ego-car was initially moving straight then, around midway, it started slowing down and came to a halt. It seemed this response was due to an increase in road congestion, which led the ego-car to cease motion completely. This behavior was particularly noticeable when the car was facing a red light, indicating that the car had to wait behind stopped traffic."
+    }
+  },
+  {
+    "video_id": "test0103.mp4",
+    "QA": {
+      "q": "What did the ego-car do after stopping at the intersection and why?",
+      "a": "Once the intersection and crosswalk were clear of the waiting vehicle and the pedestrian, our ego-car proceeded to go straight ahead as intended. As the goal during this phase of the drive was to successfully pass through the intersection, making sure the intersection was clear before advancing was essential for achieving it."
+    }
+  },
+  {
+    "video_id": "train1214.mp4",
+    "QA": {
+      "q": "Can you describe the sequence of events during the observed driving scenario?",
+      "a": "The ego-car was initially at a halt due to a red traffic signal. Upon the signal's change, the car began progressing forward, traversing an intersection with smooth motion and increasing speed. As it did so, the car maintained a relatively straight path with minor adjustments, leading to a gradual acceleration. Eventually, with the emergence of a yellow light, the car began to slow down, indicating a possible upcoming stop or turn."
+    }
+  },
+  {
+    "video_id": "train3199.mp4",
+    "QA": {
+      "q": "Could you describe the driving situation, noting special circumstances and the reaction of the ego-car?",
+      "a": "The ego-car was progressing forward smoothly on a road with no specific events happening. Close to the middle of our course, the traffic signal ahead turned red. This was noticed by the ego-car. Eventually, as we approached the signal, we also encountered a heavy traffic congestion. In response to these combined factors, the driver exercised caution and gradually decreased the car's speed, finally halting due to the traffic congestion at the red light."
+    }
+  },
+  {
+    "video_id": "train1683.mp4",
+    "QA": {
+      "q": "Could you describe the driving situation the ego-car is currently in?",
+      "a": "Sure, the ego-car was at a complete halt upon seeing several pedestrians crossing the intersection in front of it. After a short pause to ensure their safety, it began a careful left turn. The turning process was notably gradual, ensuring that the car won't be turned over. Still, it went through an intense curve midway. After the maneuver was completed, the ego-car accelerated smoothly. Although expanding speed at a good pace, the car noticed a red light ahead. This led it to slow down and stop, preparing for the next move."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "What happened at the point when the other vehicle was crossing?",
+      "a": "When the crossing vehicle became visible, our car had already come to a halt due to the sign. The vehicle maintained its stopped position until it was certain that it was safe to move forward again."
+    }
+  },
+  {
+    "video_id": "train3530.mp4",
+    "QA": {
+      "q": "Can you describe the situation and actions of the ego-car in this given driving scene?",
+      "a": "The situation begins with the ego-car approaching a T-intersection where multiple other road users are present, including pedestrians at the crosswalk and bicyclists to the left of the ego-car. The ego-car slows significantly and eventually halts due to congestion, caused primarily by several other cars ahead. The vehicle maintains its stationary position for a period of time due to the dense traffic at the intersection. As the congestion clears, the ego-car gradually picks up its pace, navigating cautiously through the intersection and successfully merging with the traffic flow."
+    }
+  },
+  {
+    "video_id": "train4133.mp4",
+    "QA": {
+      "q": "Can you explain the scenario of the ego car driving on a street with parked cars?",
+      "a": "The ego car is smoothly driving on a street where some cars are parked on the side, before coming to a complete halt at two separate intersections. The car maintained steady momentum while passing through the first intersection but had to pause when a vehicle crossed its path as it approached the second intersection. Afterwards, upon noticing the stop sign, the car came to a halt. Once the way was clear, the car proceeded through the intersection, continuing straight onwards."
+    }
+  },
+  {
+    "video_id": "train0308.mp4",
+    "QA": {
+      "q": "If we had taken a left instead of a right at the T-intersection, how would that have affected our maneuvers?",
+      "a": "That would have required a different set of maneuvers considering the nature of a T-intersection. However, as an AI assistant, I'm programmed to adapt and adjust to any changes in route or direction. So, even if we had taken a left, I would have still ensured a smooth and consistent drive, of course while considering the prevailing traffic situation. "
+    }
+  },
+  {
+    "video_id": "train1239.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation within 20 seconds based on the car's maneuver and changes in driving conditions?",
+      "a": "The ego-car was continuously driving straight during the 20 seconds timeframe. At one point, approximately halfway through the time period, we navigated through an intersection. Throughout this driving scenario, subtle shifts in our direction were necessary to remain straight, which were more pronounced when nearing the intersection. The car speed was also adjusted accordingly, starting off at a slower pace, increasing in speed notably while approaching and passing through the intersection, then gradually slowing down afterward. The situation involved a careful balance between maintaining a direct heading while also maneuvering the car to adapt to the road change."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "What adjustments did we make along the journey before stopping entirely?",
+      "a": "We first changed the lane to the right and afterward halted because of the congestion."
+    }
+  },
+  {
+    "video_id": "train4273.mp4",
+    "QA": {
+      "q": "Can you describe the road and driving conditions for the ego-car in the depicted scene?",
+      "a": "The ego-car is on a one-way street with several vehicles around, including a box truck in the right lane. Initially, the ego-car drives straight, successfully navigating past a T-intersection. The car then encounters a red light, causing it to halt its movement for a brief period. As the light turns green, the car starts moving again but faces congestion on the road which forces it to slow down. Once the congestion starts clearing, the car picks up speed and resumes its journey."
+    }
+  },
+  {
+    "video_id": "test1053.mp4",
+    "QA": {
+      "q": "Can you tell me whether any notable occurrences took place during the drive that had an impact on the car's movement?",
+      "a": "Yes, our ego-car had come across an intersection with a yield sign which had an effect on its maneuvering. Toward the middle of the drive, the surroundings indicated ongoing road work. Furthermore, a pedestrian was observed near our lane for a brief moment. All these events lead to cautious driving and further reducing the speed, eventually leading to a complete stop towards the end. "
+    }
+  },
+  {
+    "video_id": "test1053.mp4",
+    "QA": {
+      "q": "Would the car\u2019s response be different if the yield sign were not at the intersection?",
+      "a": "The yield sign required the ego-car to give the right of way. If the yield sign were not there, the ego-car might not have reduced the speed significantly or come to a complete stop toward the end. However, the presence of road work and the pedestrian still would demand cautious driving."
+    }
+  },
+  {
+    "video_id": "train1110.mp4",
+    "QA": {
+      "q": "If the traffic flow shifted to the right lane, considering our current driving behavior, do you think our ego-car would maneuver to the right lane as well?",
+      "a": "It's reasonable to assume that if the flow of traffic was to shift to the right lane, the driver might follow it. This is based on the previous observed behavior, where the driver chose to follow the traffic flow. "
+    }
+  },
+  {
+    "video_id": "train1356.mp4",
+    "QA": {
+      "q": "How would you describe the driving maneuver performed by the ego-car in this road situation?",
+      "a": "The ego-car started by making a left turn onto a one-way street from an intersection. The street appeared to be narrow and sloped downward. As the ego-car navigated this terrain, it came to a brief halt possibly due to traffic or some other road obstruction. After the brief halt, the ego-car continued its journey but at a slower pace."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "What caused our car to stop?",
+      "a": "A red traffic signal became active, prompting us to stop for safety and traffic regulation compliance."
+    }
+  },
+  {
+    "video_id": "test0103.mp4",
+    "QA": {
+      "q": "Could you comment on the car's behavior with respect to the signs on the road?",
+      "a": "The ego-car responded perceptively to the road signs. An example of this would be when the car had to make a complete stop for a sign at the intersection which was instructing so. This response is most likely due to the presence of a road sign. "
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "Did anything unusual occur while driving?",
+      "a": "The drive was routine, we did have to stop at an intersection due to a sign from 1sec to 4sec."
+    }
+  },
+  {
+    "video_id": "train1091.mp4",
+    "QA": {
+      "q": "Have we been maintaining consistent speed throughout the journey?",
+      "a": "Our pace has been varied, we started at a moderate speed, then it decreased a bit, and towards the end, we picked up the pace again, speeding up consistently."
+    }
+  },
+  {
+    "video_id": "train1929.mp4",
+    "QA": {
+      "q": "Can you describe the situation the ego-car is currently facing and its response to it?",
+      "a": "A cyclist and several pedestrians are observed waiting to cross the street. The ego-car initially slows down and comes to a complete halt at the intersection due to the red light. During this period, it is alert to any crossing vehicles. As the light changes, the car resumes its journey, proceeding straight down the road while maneuvering attentively through the T-intersection. The entire process shows the car\u2019s responsiveness to dynamic changes in traffic signals and its surroundings."
+    }
+  },
+  {
+    "video_id": "train0431.mp4",
+    "QA": {
+      "q": "Considering the current road conditions and regulations, how did you satisfy your objectives while taking care of important changes on the road?",
+      "a": "I accomplished passing three T-intersections. Each time, I adapted to the changes ahead by subtly modifying my trajectory and velocity. Most of these instances required me to widen my turning radius and thus, I decreased my speed commensurately to ensure safe navigating. Additionally, I had to shift my attention to a merging vehicle. Due to these changes in the road conditions, my vehicle moved over to the right lane after the road curved around to the right."
+    }
+  },
+  {
+    "video_id": "train1110.mp4",
+    "QA": {
+      "q": "Assuming a car suddenly cuts in, how would the ego-car likely respond, given the current driving patterns?",
+      "a": "It does not present such information on how the car would react to such sudden event. There would be numerous factors that could influence the reaction, including the distance between the vehicles and the driver's response time."
+    }
+  },
+  {
+    "video_id": "train1652.mp4",
+    "QA": {
+      "q": "Can you describe the journey of the ego-car through the city traffic and congestion?",
+      "a": "Sure! The ego-car was traveling along a one-way street, and approached a firehouse intersection. To the right side of the car, there was a bike lane. As the car approached the T-intersection, the traffic light turned red, causing the car to gradually slow down its pace. Later, due to congestion, the ego-car had to come to a complete stop close to the intersection. This stop was necessary to allow crossing traffic to pass through."
+    }
+  },
+  {
+    "video_id": "train3540.mp4",
+    "QA": {
+      "q": "Can you describe the situation and changes in the behavior of the ego-car while driving on a particular street?",
+      "a": "The ego-car is smoothly maneuvering through a street with no eminent road hazards or obstructions. The car begins by steering heavily towards the left before gradually steadying itself. This is followed by a period of mild fluctuation in the steering, indicating potential adjustments to stay on track. Throughout the journey, the car is observed to maintain a steady pace, carefully increasing its speed, signifying a clear, unobstructed route which allows the driver to confidently accelerate."
+    }
+  },
+  {
+    "video_id": "train1655.mp4",
+    "QA": {
+      "q": "Can you describe the behavior of the ego-car during the observed period and the events that may have influenced its movements?",
+      "a": "Initially, the ego-car was stationary due to a congestion scenario securing a safer environment. As the congestion cleared, it started accelerating and continued its journey straight with the flow of the traffic through an intersection. The ego-car also navigated around a pedestrian stepping into a crosswalk. It then executed a lane change when necessary possibly due to another vehicle coming into its original lane. Further along, the car carefully manoeuvred through a crosswalk and successfully passed an intersection which seems to have been its main objective. Through all these circumstances, the car was adaptive to its environment, ensuring the safety and continuity of the journey."
+    }
+  },
+  {
+    "video_id": "train1091.mp4",
+    "QA": {
+      "q": "What's the weather like?",
+      "a": "Currently, it's raining outside."
+    }
+  },
+  {
+    "video_id": "train1634.mp4",
+    "QA": {
+      "q": "Could you give me an idea of how the car was controlled around the time we passed through the intersection?",
+      "a": "Sure. As the car approached the intersection, it decreased its speed, coming to a complete stop because of the congestion. Once the congestion had eased and the light had turned green, the car picked up speed again at a steady pace while progressing through the intersection."
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "What about any vehicles joining the lane?",
+      "a": "Indeed, there was a vehicle that merged into our lane around the 9th to 11th seconds."
+    }
+  },
+  {
+    "video_id": "train3976.mp4",
+    "QA": {
+      "q": "Can you describe the driving scene the ego-car is navigating through?",
+      "a": "The ego-car is moving along a narrow street where construction activity is observed on both sides. There are construction signs placed along the road. Initially, the car approaches a sign and comes to a halt. After the car stops for the sign, it continues on its path, navigating through a T-intersection. Although the narrow street and construction might cause some challenges, the car smoothly negotiates through this situation."
+    }
+  },
+  {
+    "video_id": "test1313.mp4",
+    "QA": {
+      "q": "What actions did the ego-car take during the driving situation, and what are some notable events that could have influenced those actions?",
+      "a": "The ego-car initially moved straight, passing through the T-intersection. Shortly after, it had to stop due to a bicyclist on the road and congested traffic. Once the road was clear, the car continued to move straight but had to stop again due to further traffic congestion."
+    }
+  },
+  {
+    "video_id": "train1606.mp4",
+    "QA": {
+      "q": "Can you describe the ego-car's movement and the surroundings?",
+      "a": "The ego-car moved straight down a street frequented by trolley cars. Initially, it executed a right turn. As the car progressed, it continued to accelerate. Towards the end of the journey, the ego-car smoothly navigated through an intersection. Throughout the journey, the car's movements were smooth and careful, ensuring appropriate responses to any changes in the environment."
+    }
+  },
+  {
+    "video_id": "train3813.mp4",
+    "QA": {
+      "q": "If there were no congestion, what could have been different in the ego-car's maneuver?",
+      "a": "Without the congestion, the ego-car would have been able to proceed through the green light without waiting, maintaining a more steady momentum and potentially higher velocity."
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "So, no car movement at all during the 20 seconds?",
+      "a": "That's correct. The ego-car remained stationary throughout the entire 20 seconds. "
+    }
+  },
+  {
+    "video_id": "test1053.mp4",
+    "QA": {
+      "q": "Given the turn indicated by the yield sign, what implications do you think the road work and pedestrian sighting had on the ego-car's path?",
+      "a": "The ego-car enacted caution in response to the road work, which typically suggests possible obstructions or unanticipated changes in the road condition. The presence of the pedestrian introduced an additional layer of caution. While dealing with multiple driving stimuli, one being the yield sign, the ego-car's priority would be ensuring safety. This could lead to a considerable reduction in speed or even a complete halt if necessary, which was indeed observed."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "How did our car react to the many parked cars on the side of the road?",
+      "a": "We initially continued straight, passing by all the parked cars. Shortly after, we proceeded to make a right turn."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "Was there any subsequent disturbance on the road?",
+      "a": "Yes, towards the later part of the drive, there was congestion, which required a change in your behavior."
+    }
+  },
+  {
+    "video_id": "train0556.mp4",
+    "QA": {
+      "q": "Can you describe the road conditions and the main actions taken by the ego-car?",
+      "a": "The road is fairly calm, with no other vehicles in sight. As the ego-car is approaching a stop light, it transitions to the right lane. Shortly after moving into the right lane, the stoplight switches to yellow. In reaction to the changing light, the ego-car slows down and takes a right turn."
+    }
+  },
+  {
+    "video_id": "test1523.mp4",
+    "QA": {
+      "q": "Can you describe the manner in which the ego-car navigated the intersection with passing traffic and turned left?",
+      "a": "The ego-car stopped at an intersection due to an incoming traffic sign. It waited there for a few seconds as there were a few vehicles crossing its path. Once the path was clear, the ego-car made a right turn and entered the T-intersection. It continued on this route before approaching another T-intersection, where it managed to successfully pass through once again. On both intersections, the ego-car had to slow down significantly and make considerable turns in order to navigate efficiently and safely."
+    }
+  },
+  {
+    "video_id": "test0103.mp4",
+    "QA": {
+      "q": "I noticed that there were intervals when our driving was particularly cautious. Could you explain why?",
+      "a": "That's correct. During our drive, there were a couple of elements that required specific attention. One of those instances was when there was a motorcyclist on the road right around the time we approached the intersection. Later, as we were preparing to move through the intersection, a pedestrian was crossing the road. These situations required the ego-car to be extra cautious."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "What can you say about the maneuver of the car when it made a left turn?",
+      "a": "The car was moving fairly straight initially, but as it approached the point where the turn was to be made, the car made a sharp turn to the left. The steering angle and speed reflected this, showing a significant change in the direction of the car. After making the turn, the vehicle resumed moving straight."
+    }
+  },
+  {
+    "video_id": "train4147.mp4",
+    "QA": {
+      "q": "Could you describe the important incidents and actions taken during the recent driving scene?",
+      "a": "While on the road, our car was moving straight ahead when we observed a pedestrian at a crosswalk. Due to the traffic sign from the 7th second onwards, we gradually slowed down and came to a stop at the crosswalk, showing compliance with traffic rules. During the short stop, we noticed traffic congestion from the 17th second leading us to stop yet again. Throughout this period, we adjusted our path slightly to accommodate for these road conditions and eventualities."
+    }
+  },
+  {
+    "video_id": "train0431.mp4",
+    "QA": {
+      "q": "If there was a sudden increase in traffic flow after the second intersection, how might your speed adjustments have varied?",
+      "a": "If traffic increased suddenly, I would likely have to reduce my speed more significantly after the second intersection to maintain a safe following distance. My actions would also be influenced by the behaviours of the vehicles around me as I would need to respond appropriately to maintain overall safety."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "How would my driving patterns change if the light was green instead of red?",
+      "a": "If the light was green, you might not need to stop due to a clear path, or you may need to prepare for a left turn or continue straight, depending on your route. However, driving patterns depend on many factors, including traffic rules, road conditions or future plans."
+    }
+  },
+  {
+    "video_id": "test1391.mp4",
+    "QA": {
+      "q": "Can you describe the situation and any maneuvers the ego-car took recently?",
+      "a": "While driving through an intersection on a narrow street, the ego-car noticed a vehicle coming from the opposite direction. Around the same time, a pedestrian was spotted jaywalking which prompted the ego-car to slow down. With traffic congestion adding to the complexity of the situation, the ego-car came to a stop. Once the congestion was resolved, the ego-car proceeded but stopped again due to a stop sign. After ensuring the turn was safe to make, the ego-car steadily navigated a left turn."
+    }
+  },
+  {
+    "video_id": "train1367.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation that the ego-car is currently facing?",
+      "a": "The ego-car is at a crosswalk currently halted and waiting. There are pedestrians crossing the road in front of the car. The traffic light is on a red signal which is the reason for the halt. The car has been in this resting state for a while with its wheels slightly inclined towards the left. The car remains stationary throughout the entire scenario, responding to the active traffic conditions and obeying traffic rules."
+    }
+  },
+  {
+    "video_id": "test1394.mp4",
+    "QA": {
+      "q": "Can you describe the current scene from the perspective of the ego-car?",
+      "a": "As the ego-car moves forward, another vehicle was merging in front, causing the ego-car to make slight adjustments. When the ego-car approached a stop sign, it slowed down and came to a full stop for obeying the traffic rules. A cross traffic occurrence was noted, which held the car at the stop sign for slightly longer. At the same time, the ego-car was preparing to cross the intersection. However, as soon as the path was cleared, a pedestrian started crossing the road, urging the ego-car to wait until he crossed. After the pedestrian crossed, the car continued on its path smoothly, maintaining an increased speed."
+    }
+  },
+  {
+    "video_id": "test0971.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario focused on pedestrian crossing the driving lane?",
+      "a": "Our ego-car was traveling down the road when preliminary signs were noticed. Shortly afterward, there was a pedestrian crossing the road. To ensure safety, the car decelerated and navigated attentively, briefly adjusting the direction to smoothly traverse the crosswalk. It continued at this moderated pace until fully passing the crossing. Once clear of pedestrians, the car gradually regained its initial speed. Nearing the end of the scenario, the car again acknowledged further signs."
+    }
+  },
+  {
+    "video_id": "train3431.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario based on the given information?",
+      "a": "As the ego-car drove along, a stop sign was spotted ahead, causing the car to slow down and stop for the sign. During this time, a pedestrian was observed crossing at the crosswalk. Therefore, the car remained stationary for a while to let the pedestrian pass. Following that, the car proceeded straight forward and then a stop sign came into view again. The car moderately decelerated and stopped for the sign once more before continuing on its path."
+    }
+  },
+  {
+    "video_id": "train1075.mp4",
+    "QA": {
+      "q": "Can you describe the driving scene and events that occurred while the ego-car was driving in the lane second furthest from the right on the highway?",
+      "a": "The ego-car maintained a steady pace while driving in the lane next to the rightmost lane on the highway. During this journey, there were two significant occurrences that demanded attention. Initially, another vehicle intruded the lane where our car was moving. Following this, towards the middle of the drive, a motorcyclist made his presence felt on the road. Besides these, other drivers remained in their respective lanes on either side of our car."
+    }
+  },
+  {
+    "video_id": "train2809.mp4",
+    "QA": {
+      "q": "Can you describe the recent driving situation that occurred during a rainy and wet road condition?",
+      "a": "The ego-car was initially progressing straight on a soaking road due to rainfall. As the journey continued, the car moved onto another path. During the maneuver, the car reduced its speed significantly but increased it rapidly once the merge was successfully completed. The merge seemed intentful and was implemented over a few seconds towards the end of this observation period."
+    }
+  },
+  {
+    "video_id": "train0431.mp4",
+    "QA": {
+      "q": "If the vehicle attempting to merge into your lane did so earlier, how might you have altered your maneuver?",
+      "a": "If the vehicle had attempted to merge sooner, I would have likely decelerated a bit more moderately and possibly altered my lane positioning to accommodate the vehicle. Additionally, I would also need to take into account any relevant traffic rules and the direction of upcoming turns."
+    }
+  },
+  {
+    "video_id": "train2114.mp4",
+    "QA": {
+      "q": "Could you describe the driving scene observed by the AI visual assistant?",
+      "a": "The visual help identifies a pedestrian waiting to cross the road and a red light ahead while our ego-car is driving straight. As the traffic light turns red, our ego-car gradually slows down over a few seconds, finally coming to a complete stop before the crosswalk. This restriction lasts until the traffic light changes."
+    }
+  },
+  {
+    "video_id": "train1110.mp4",
+    "QA": {
+      "q": "Could there be a potential reason that our ego-car is consistently in the middle lane and not changing lanes?",
+      "a": "From the observed behavior, it seems the driver is maintaining the middle lane because that's where the flow of traffic is. There's no explicit indication of obstacles or traffic in the other lanes, so it could be the driver's choice to stick with the flow."
+    }
+  },
+  {
+    "video_id": "test0627.mp4",
+    "QA": {
+      "q": "What is the current driving situation at the intersection?",
+      "a": "Our ego-car is stopped at an intersection due to a red traffic light. Several cars are turning left in front of our vehicle, requiring us to pause and give way to them. Additionally, there are vehicles crossing and a vehicle merging near our position. We keep consistently still and with a slight turn towards right during this entire event."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "How did the traffic situation change while we were at halt and I might not have noticed?",
+      "a": "While we were stopped due to congestion, the traffic signal turned from red to presumably green as traffic started to flow again."
+    }
+  },
+  {
+    "video_id": "test1370.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation that was observed?",
+      "a": "While driving in a lane designated for buses, the ego-car came to a stop due to traffic halted at a red light. Pedestrians were spotted crossing the street in front of the stopped traffic and cars were parked along the right side of the street. Notably, a bus ahead pulled forward to make a left-hand turn and then halted again. The ego-car remained stationary for a majority of the observed time, likely due to the red light and crossing pedestrians and vehicles."
+    }
+  },
+  {
+    "video_id": "train2549.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation and state of the road in this instance?",
+      "a": "Our ego-car is driving on a straight road with no specific events occurring. A red light at an intersection is in front of the car which it keeps in mind. As we draw closer, we observe traffic congestion which prompts us to gradually reduce our speed. The congestion and the red light both contribute to this decision. In response to the dense traffic, the car comes to a complete stop for a few moments to ensure safety."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "If the congestion didn't happen, how would our behavior possibly change?",
+      "a": "If the congestion hadn't occurred, considering the red traffic light, we might have still slowed down or even stopped depending on the timing of the traffic light."
+    }
+  },
+  {
+    "video_id": "train3364.mp4",
+    "QA": {
+      "q": "Can you describe the driving behavior and conditions the ego-car is currently facing on the road?",
+      "a": "The ego-car was initially driving forward with increasing speed, but it had to hold at a stop sign. Due to a bicyclist on the road, the driver exercised particular caution from this moment until making a left turn slightly later. During this period, the car significantly reduced its speed before coming to a brief halt and then incrementally picking up speed again towards the left turn. The cycle of slowing down and speeding up indicates the driver's cautious response to external factors, such as the presence of the bicyclist and responding to the traffic sign."
+    }
+  },
+  {
+    "video_id": "train0035.mp4",
+    "QA": {
+      "q": "Could you describe how the ego-car maneuvered in the current driving scenario?",
+      "a": "The ego-car steadily drove up to an intersection before making a careful left turn as the light was still green. Thereafter, it continued along the road smoothly, maintaining constant speed. As it approached a red light towards the end, it slowed down due to traffic congestion and eventually came to a halt."
+    }
+  },
+  {
+    "video_id": "train4160.mp4",
+    "QA": {
+      "q": "Can you describe the driving conditions and the ego-car's response to them over the recent period?",
+      "a": "The ego-car was driving straight along a two-lane road, with other cars moving around it and parked vehicles lining the lanes. Pedestrians were noticed on the road as well. Noticing a stop sign up ahead, the ego-car gradually slowed down and stopped, executing necessary and smooth adjustments to its navigation. A vehicle was observed moving through the intersection, which claimed the ego-car's attention. Eventually, the ego-car passed the intersection after halting for the sign, continuing its journey."
+    }
+  },
+  {
+    "video_id": "train0262.mp4",
+    "QA": {
+      "q": "Can you describe the road conditions and how the ego-car responded during this drive?",
+      "a": "The ego-car began by crossing a railroad, then proceeded to drive straight. Shortly afterwards a cyclist appeared ahead on the road, and at some point the car had to initiate a right turn at an intersection. As the cyclist came closer, the car continued to gently adjust its path, gradually decreasing its speed for safety. Having passed the cyclist, the car steadily increased speed and continued on its rightward path at the intersection, after which it continued to drive in a straight direction. The car's behavior exhibited both response to immediate road conditions (such as the cyclist), and longer-term path planning (like the right turn at the intersection)."
+    }
+  },
+  {
+    "video_id": "test1187.mp4",
+    "QA": {
+      "q": "Can you describe the actions of the ego-car at the intersection and how it responded to the other vehicles crossing?",
+      "a": "The ego-car approached an intersection slowly. Seeing other cars cross the intersection, the ego-car came to a complete halt as a response, keeping the safety of all road users. After waiting for the cars to pass, the ego-car then proceeded to pull forward cautiously, continuing its journey down the road. The response of the car demonstrated thoughtful navigation and adherence to road rules."
+    }
+  },
+  {
+    "video_id": "test0376.mp4",
+    "QA": {
+      "q": "Can you describe how the ego-car maneuvered in response to its surroundings during the drive?",
+      "a": "The ego-car was initially passing through a T-intersection and soon after, it had to accommodate a merging vehicle. As the drive proceeded, the ego-car became aware of a vehicle crossing at the intersection. It also encountered a red light at an intersection at which point, the car had to Decelerate to a stop in response to the signal. There were variances in the car's movements throughout the drive due to changes in road conditions and traffic signals."
+    }
+  },
+  {
+    "video_id": "test1053.mp4",
+    "QA": {
+      "q": "What could happen if the car didn\u2019t reduce its speed when a pedestrian was near the lane?",
+      "a": "If the ego-car didn't reduce speed when there was a pedestrian near the lane, it could potentially result in a hazardous situation. The pedestrian might unexpectedly step into the road or the car turning to avoid the pedestrian can lead to accidents. It's critical to take safe maneuverings and reduce speed when a pedestrian is noted nearby."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "Considering the overall driving journey, can you describe any noteworthy events that took place and how the ego-car responded?",
+      "a": "Throughout the trip, the car first responded to a sign by gradually decreasing its speed until it came to a complete stop. This was in compliance with the rules of the road. After some time at rest, it then noticed a vehicle crossing and held its position until it was safe to proceed. Finally, the vehicle intentionally made a left turn, after which it continued on in a straight path."
+    }
+  },
+  {
+    "video_id": "train4153.mp4",
+    "QA": {
+      "q": "Can you describe the manner in which the driver approaches and navigates the intersection with the stop sign?",
+      "a": "While driving downhill on a street, the driver approached an intersection that had a stop sign to the right. However, they did not halt long enough at the stop sign to ensure no vehicles were approaching from the left. Despite this, they proceeded to make a right turn smoothly. After the right turn, they continued to increase their speed and effectively passed the intersection."
+    }
+  },
+  {
+    "video_id": "train1634.mp4",
+    "QA": {
+      "q": "Could you tell me what changed after we stopped for a while?",
+      "a": "After a while, the congestion eased up and the red light turned green. Our ego-car then proceeded to pass through the intersection once the situation was deemed safe."
+    }
+  },
+  {
+    "video_id": "train2887.mp4",
+    "QA": {
+      "q": "Can you describe the journey of the ego-car on the road?",
+      "a": "The ego-car is initially moving smoothly down the right lane. But, it eventually comes to a halt at a stop sign. The presence of a bicyclist is noticed on the road from around the time the car starts slowing down for the stop sign. After stopping, the ego-car then continues across the intersection, maintaining a steady pace."
+    }
+  },
+  {
+    "video_id": "train2580.mp4",
+    "QA": {
+      "q": "What happened during the recent drive with the ego-car?",
+      "a": "The ego-car successfully navigated through a T-intersection and then encountered a construction zone in its lane. While proceeding, the car did notice some crossing vehicles at two different intervals. Importantly, a yellow traffic signal appeared which promptly turned red, resulting in the vehicle slowing down its pace and eventually stopping due to the red light."
+    }
+  },
+  {
+    "video_id": "test1385.mp4",
+    "QA": {
+      "q": "Could you specify what driving actions we would have taken if the road work was in our driving lane instead of the neighboring one?",
+      "a": "In case the road work was positioned in our driving lane, the car would need to slow down, scan for any other road users such as vehicles or pedestrians, and then safely switch lanes or detour around the construction, ensuring the rules of the road are obeyed all the while. The exact actions would however depend on the specifics of that moment's traffic situation."
+    }
+  },
+  {
+    "video_id": "test0103.mp4",
+    "QA": {
+      "q": "If the pedestrian or the turning vehicle had not cleared the intersection in time, how would the ego-car have behaved?",
+      "a": "If the pedestrian or the turning vehicle had stayed longer in the intersection, the ego-car would have stayed in a stationary state for a longer period as well. Allowing enough time for the intersection to become entirely clear is a crucial driving rule that our car adheres to for ensuring safety."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "What would we do if one of the parked cars suddenly pulled out into the road?",
+      "a": "If one of the parked cars suddenly entered the road, our car's primary concern would be avoiding a collision. This would likely involve a combination of sudden braking and a change in steering angle to swerve away from the emerging vehicle. "
+    }
+  },
+  {
+    "video_id": "train0308.mp4",
+    "QA": {
+      "q": "How did the overall traffic condition and our car maneuver influence our ride?",
+      "a": "Traffic was dense over all three lanes and we had to pass through a light. Despite the traffic situation, I managed to successfully navigate through the intersection. Later on, we approached a T-intersection, where I also successfully guided the car through. "
+    }
+  },
+  {
+    "video_id": "train3813.mp4",
+    "QA": {
+      "q": "I can discern that you passed through a red light. Can you tell me why that happened?",
+      "a": "The ego-car traversed through a parking area, where the lights were red. This was before it entered the street."
+    }
+  },
+  {
+    "video_id": "train1132.mp4",
+    "QA": {
+      "q": "Could you describe the driving behavior of the ego-car in the present situation?",
+      "a": "The ego-car is continuously maintaining itself on a straight path on an expressway. Throughout its journey, the car progressively decelerates with a slight tilt to the left side. There aren't any notable events or disturbances on the road."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "Does the car keep its lane during the turn?",
+      "a": "Yes, the car effectively increases the steering angle during the turn, indicating that it is maintaining its lane throughout the maneuver. After the turn, the steering angle decreases again as the car straightens out. "
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "It's a sunny day, huh? And how's the traffic condition?",
+      "a": "Yes, it's a beautiful sunny day with clear skies. The ego-car is currently stationary due to the red signal."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "How long did the vehicle from opposite direction pass the intersection?",
+      "a": "The vehicle started crossing the intersection approximately 14 seconds into our pause and finished around the 20th second."
+    }
+  },
+  {
+    "video_id": "train1860.mp4",
+    "QA": {
+      "q": "Can you describe the sequence of movements and actions the ego-car performed during the session?",
+      "a": "The ego-car backed out of a tight parking space in front of a business, then navigated carefully through several vacant disabled parking spaces. Once clear of the spaces, the car started moving to the left across the parking lot, continuing this direction until it approached the entrance of a side street. The car stopped momentarily at the stop sign before taking a left turn into the side street. There were no obstacles present during the entire drive."
+    }
+  },
+  {
+    "video_id": "test0770.mp4",
+    "QA": {
+      "q": "Can you describe the road conditions and the maneuvers of our ego-car during this driving event?",
+      "a": "Sure. As the ego-car progresses along the road, it encounters congestion, which prompts it to significantly reduce its speed and eventually come to a complete stop. While the stop does coincide with a red signal at a traffic light, the primary reason for stopping appears to be the road congestion ahead. Upon the traffic light turning green, the ego-car resumes its journey, progressing straight down the road. This entire process involves minor tweaks and adjustments in its steering to ensure smooth navigation."
+    }
+  },
+  {
+    "video_id": "train4183.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario for the ego-car during this period?",
+      "a": "The ego-car drives straight initially. As it advances, it observes a pedestrian crossing the road. The pedestrian crossing prompts the car to come to a halt as a recognition of a stop sign. Here, the car shows responsiveness to changes in traffic conditions. Following, as the pedestrian finishes crossing the road and the path becomes clear, the car maneuvers a left turn. The whole process embodies the car's adherence to road signage and norms."
+    }
+  },
+  {
+    "video_id": "train1801.mp4",
+    "QA": {
+      "q": "Could you summarize a 20-second driving scene that includes start from a stop position, crossing pedestrian, and intersection passing?",
+      "a": "Yes, the ego-car initially came to a start, potentially due to a pedestrian that seemed like they were going to cross the road. As the ego-car started its journey from a halt, it maintained a relatively straight path. The driver had to be cautious for a moment again, this time for a truck that was pulling out. Once making sure it was safe to proceed, the ego-car continued driving straight and successfully navigated through an intersection."
+    }
+  },
+  {
+    "video_id": "train0431.mp4",
+    "QA": {
+      "q": "What would have been your necessary actions if the no right-turn rule didn't apply at the intersection?",
+      "a": "If the no right-turn rule was not in effect, I would take into account the additional possibility of vehicles turning right at the intersection. I would prepare to adjust my speed and position accordingly to respond to potential changes in traffic flow and to maintain the driving safety."
+    }
+  },
+  {
+    "video_id": "train3665.mp4",
+    "QA": {
+      "q": "Can you describe the driving scene observed from the ego-car, focusing on its maneuvers and surrounding elements?",
+      "a": "The ego-car gracefully maneuvers through a slow left turn, while another vehicle eases into a parking spot on the same side. As the turn is successfully completed, the view opens up to a street lined with parking spots on both sides, adding complexity to the driving environment. Throughout this transition, the ego-car maintained a steady pace and exhibited smooth control over the adverse situations, further solidifying its driving competence."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "Any peculiar observations around the intersection?",
+      "a": "Yes, during the stop, a vehicle was observed crossing the junction."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "Were we still at rest after the car passed the intersection?",
+      "a": "Yes, even after the passing of the crossing vehicle, we maintained our stationary position. The red light was still active."
+    }
+  },
+  {
+    "video_id": "train4189.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation on the road?",
+      "a": "Ego-car is driving on a straight road and there's no major event. However, it comes across a red light so it has to stop. During the process of stopping, a vehicle is observed crossing the intersection, so extra caution is needed. After the car comes to a complete halt at the red light, another vehicle is seen crossing, indicating that it indeed was a good decision to stop at the light. Overall, the ego-car is maintaining a smooth drive and responding appropriately to traffic signals while paying attention to other vehicles on the road."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "What do you imagine would have happened if there wasn't a car in front of me at the red light?",
+      "a": "Without a car in front of you during a red light, you could have considered moving to the rightmost lane to prepare for a right turn, given it's allowed and safe. However, it doesn't present such information, the movement would have depended on the destination and following the traffic rules."
+    }
+  },
+  {
+    "video_id": "train1634.mp4",
+    "QA": {
+      "q": "If there had been an alternative route that avoids the congested intersection, would our car have taken that route?",
+      "a": "As an AI assistant, based on the available data, I can't predict alternative actions. However, generally, drivers might choose an alternative route to avoid congestion and maintain a steady pace on their trip."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "If there hadn't been the stop sign, how might the journey have differed?",
+      "a": "If there had not been a stop sign, the car would likely have continued moving at a constant speed and direction, presumably not coming to a stop and waiting as it did. However, this could potentially have resulted in an unsafe situation, especially if there were crossing vehicles or pedestrians. So, it's crucial for the car to respect traffic signs for everyone's safety. "
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "Sounds like quite a busy road. Any reason we're not moving?",
+      "a": "We had to remain stationary due to the red traffic light."
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "So, we're just waiting for the light to turn green?",
+      "a": "Yes, that's right. Just waiting for the green light to proceed."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "What initially caught my attention during the drive?",
+      "a": "At the beginning of the drive, there was a vehicle crossing that caught your attention."
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "Any nearby cars moving around?",
+      "a": "Yes, there were several vehicles crossing our path at two separate intervals: from the 4th to 16th seconds, and then again from the 18th to 20th seconds."
+    }
+  },
+  {
+    "video_id": "test0103.mp4",
+    "QA": {
+      "q": "Based on your observation of the recent drive, can you tell me why our car had to stop in the intersection?",
+      "a": "Our ego-car encountered an intersection where another car was partway in the crosswalk. There was also a pedestrian crossing slowly, causing the other vehicle to remain stationary and partially blocking our path. Thus, our car had to come to a stop to allow the pedestrian and vehicle to clear the intersection."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "Could you explain the way our car made the turn? Did it seem normal?",
+      "a": "Normal is subjective but our car seemed to handle it well. It gradually increased the steering angle to facilitate the right turn, indicating a well-handled maneuver."
+    }
+  },
+  {
+    "video_id": "train3813.mp4",
+    "QA": {
+      "q": "Could the ego-car pull a u-turn or go straight ahead at the intersection?",
+      "a": "No, the only allowed movement at the intersection was a right turn."
+    }
+  },
+  {
+    "video_id": "train1136.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation and the behavior of the ego-car during a 20-second period in which there are various road events?",
+      "a": "The ego-car was stationary due to congestion and a red light at the beginning. This situation continued for some time until the congestion eased. During this time, there was a worker using a lift on the back of his truck nearby. After the delay, the ego-car started to move gradually. It was moving straight at a slow to moderate pace on the street. At the end of the observed period, a parked vehicle was noticed on the road. The ego-car adjusted its direction slightly to the left, then to the right to avoid it, while also increasing its speed."
+    }
+  },
+  {
+    "video_id": "test1043.mp4",
+    "QA": {
+      "q": "Can you describe the driving behavior and road conditions for the past few seconds?",
+      "a": "Our ego-car has been navigating a slightly complex traffic situation. It started off traveling straight then had to switch directions towards the right, then back to the left to avoid an oncoming vehicle. It then aligned itself towards the right side of the driving lane and maintained a straight course. Further ahead, it encountered a stop sign at an intersection where it came to a halt. It subsequently started moving forward again. During this course, the car had to pay special attention to vehicles crossing its path on three separate occasions and another vehicle merging into its lane once. The behavior at the stop sign was in response to the road signage."
+    }
+  },
+  {
+    "video_id": "train2764.mp4",
+    "QA": {
+      "q": "Could you describe the series of driving maneuvers performed by the ego-car in the given scenario?",
+      "a": "The ego-car began by driving in a straight line when it encountered a stop sign. This prompted the driver to slow down and stop momentarily. As the car continued moving, it approached an intersection where it made a left turn, most likely due to navigation instructions. Soon afterwards, it made a tricky right turn. Throughout this timeline, there was a note of another vehicle crossing. Despite these transformations, no major changes in the surroundings greatly impacted the ego-car's journey."
+    }
+  },
+  {
+    "video_id": "test1385.mp4",
+    "QA": {
+      "q": "Since we stopped, were there any other hazards that we had to keep in mind?",
+      "a": "Yes, aside from the pedestrians crossing the road, there was a vehicle crossing the road at the intersection and road work going on near our lane. All these required constant attention to ensure safety."
+    }
+  },
+  {
+    "video_id": "train1671.mp4",
+    "QA": {
+      "q": "What does the ego-car encounter while driving and how does it respond to the situation?",
+      "a": "The ego-car encounters a pedestrian with a wheeled bag crossing the road, a vehicle crossing its path and a red traffic light during its journey. The car pays careful attention to the movements of the pedestrian and the crossing vehicle while steadily maintaining its course. However, upon facing the red light, the car maneuvers to a complete halt, adhering to traffic rules. The car remains stationary for a notable period of time due to the red light before eventually moving forward."
+    }
+  },
+  {
+    "video_id": "train2685.mp4",
+    "QA": {
+      "q": "How did the ego-car respond to the traffic congestion while it was on the left lane?",
+      "a": "The ego-car was initially moving at a gradual pace while controlling its direction slightly to the left. As it approached the traffic congestion, the car slowed down further and eventually came to a complete stop, remaining stationary for the remainder of the time in the traffic."
+    }
+  },
+  {
+    "video_id": "test1148.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario and how the ego-car maneuvered based on the events unfolding on the road?",
+      "a": "The ego-car started by driving straight down the road. As it approached a T-intersection, it maintained a smooth trajectory to pass through. After this, the car made sure to pay special attention to a vehicle crossing its path. As it continued, a stop sign appeared, which led to the vehicle making a complete stop. This halt was due to the car responding appropriately to the presence of the stop sign. After the brief stop, the vehicle started again, proceeding to make a careful and controlled right turn."
+    }
+  },
+  {
+    "video_id": "train2267.mp4",
+    "QA": {
+      "q": "Could you describe the events our ego-car encountered within the 20 seconds drive?",
+      "a": "After smoothly driving through an intersection, our ego-car had to navigate around a tow truck parked on the right, causing it to maneuver into the opposing lane to pass. Shortly later, the ego-car approached a stop sign and came to a full stop. After the stop, the ego-car successfully executed a right turn."
+    }
+  },
+  {
+    "video_id": "train3473.mp4",
+    "QA": {
+      "q": "Can you describe the ego-car's actions when approaching and proceeding from the stop sign?",
+      "a": "As the ego-car approached the stop sign, it steadily slowed down, complying with the posted sign. It then came to a complete halt, paused for a moment to check for any crossing vehicles. Once the road was clear, the car took a right turn, smoothly picking up speed as it maneuvered the corner. After the turn, the car continued driving straight while gradually accelerating, and then it smoothly changed to the left lane."
+    }
+  },
+  {
+    "video_id": "train0309.mp4",
+    "QA": {
+      "q": "Can you describe the movement and behavior of the ego car in the given road event?",
+      "a": "The ego car starts by moving across two lanes swiftly to position itself into a left turn lane. In the process, it spots a vehicle crossing its path, but navigates this situation without disrupting its movement. After merging into the left turn lane, it prepares to make a leftward turn, being cautious of another vehicle crossing its path during this maneuver. Throughout, the car adjusts its speed accordingly, slowing down when changing lanes or turning, and accelerating when the path is clear."
+    }
+  },
+  {
+    "video_id": "train1905.mp4",
+    "QA": {
+      "q": "Can you describe the scenario where the car almost has an accident and how did it maneuver afterward?",
+      "a": "The ego-car was maneuvering through a T-intersection at a considerable speed. Shortly after, there was a moment of attention aroused by a sign, causing the driver to apply brakes sharply, slowing down significantly. This was clearly a reactive stop, aimed to prevent any undesirable incident. After passing the sign, the driver quickly regained the previous pace, and navigated another T-intersection smartly to continue on the journey."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "Why did we turn left at the beginning of journey?",
+      "a": "The intention was to position the car on a path leading to a desired destination."
+    }
+  },
+  {
+    "video_id": "train3974.mp4",
+    "QA": {
+      "q": "Did the car maintain the same speed throughout the drive?",
+      "a": "No, our car did not maintain the same speed throughout the drive. We reduced our speed to come to a stop due to a traffic sign at the initial part of the drive. Then we smoothly accelerated after the stop and through the right turn."
+    }
+  },
+  {
+    "video_id": "train4118.mp4",
+    "QA": {
+      "q": "Can you describe what happened on the road and how the ego-car navigated it?",
+      "a": "The ego-car was navigating the road where it encountered an intersection with passing cars. It managed to smoothly slow down and came to a halt preemptively, possibly due to a sign on the road. A parked vehicle grabbed our attention briefly, afterwards, vehicles crossing the intersection kept it busy for a while. Upon having considered the traffic and the sign, the ego-car cautiously began progressing, passing through the intersection and heading up a hill. Nearing the end of the event, the ego-car apparently reacted to another sign, slowing down once again before resuming its trajectory."
+    }
+  },
+  {
+    "video_id": "test1087.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario the ego-car had just experienced?",
+      "a": "As the ego-car was driving, a curve in the road appeared which the car followed, turning to the right. During this, there were pedestrians crossing the road that needed to be watched. After a while, vehicles also started crossing the path of the ego-car. The drive continued till the car reached an intersection where the traffic signal was red. Initially, the signal was yellow, causing slowing down, but eventually changed to red, due to which the ego-car had to halt. Suddenly, a vehicle attempted merging with the lane at the intersection that needed attention even when the car was stationary."
+    }
+  },
+  {
+    "video_id": "train0308.mp4",
+    "QA": {
+      "q": "What if traffic condition gets worse? How would you have handled the situation?",
+      "a": "It would depend on how much worse the traffic became. In the case of severe congestion, I might need to reduce our speed further or find an alternative route if available to keep up with our pace. If necessary, I might also need to take extra safety measures, like increasing our distance with other vehicles. But the ultimate goal would remain, ensuring a safe and efficient drive.\n"
+    }
+  },
+  {
+    "video_id": "test1173.mp4",
+    "QA": {
+      "q": "Could you describe the driving situation based on the established behaviours, traffic signals, and acceleration and deceleration patterns of the ego-car?",
+      "a": "The ego-car initially proceeded in the right lane before smoothly transitioning into a turning lane. The move was characterized by a steady pace and moderate changes in steering instructions. On noticing a yellow light, a careful right turn was executed. Afterwards, the car drew closer to a halt, observing a red light. Unsurprisingly, there was an increase in traffic congestion towards the end of the period observed which may have contributed to the stop, likely adhering to traffic regulations and safety considerations. Therefore, by combining mindful adjustments concerning steering controls, acknowledging traffic lights and adapting to traffic conditions, the car demonstrated competent road navigation."
+    }
+  },
+  {
+    "video_id": "train1634.mp4",
+    "QA": {
+      "q": "In case there was no congestion, how might our journey have been different?",
+      "a": "In the absence of the congestion, the ego-car would have continued navigating the road smoothly without needing to stop. The journey would have been more swift as we wouldn't have had to wait for the congestion to clear at the intersection."
+    }
+  },
+  {
+    "video_id": "train1819.mp4",
+    "QA": {
+      "q": "Can you describe the situation the ego-car encountered while driving straight on the road?",
+      "a": "The ego-car proceeded without deviating from its course, navigated through a few T-intersections. As the car was approaching each intersection, there could be a necessity to halt if the traffic light turned red. Alongside, the ego-car was also mindful of the crosswalks with possible pedestrians crossing which may require it to slow down. Not to miss potential vehicles that could change their lanes and hinder the ego-car's path. Despite these events, the car maintained its speed appropriately, slowing down slightly when required."
+    }
+  },
+  {
+    "video_id": "train4251.mp4",
+    "QA": {
+      "q": "Can you describe the specific series of events and actions that occurred on the road over the past 20 seconds?",
+      "a": "The ego-car started driving straight on a street where some pedestrians and street repairs were noticed. In about half of the time, a vehicle was seen crossing from our lane, and a stop sign emerged in sight, prompting the driver to respond by coming to a halt. As the vehicle moved more slowly, it made a full stop at the sign. Towards the end, the ego-car picked up a little speed and made a right turn following the traffic sign."
+    }
+  },
+  {
+    "video_id": "train3813.mp4",
+    "QA": {
+      "q": "What was the reason the ego-car had to stop even after the street light turned green?",
+      "a": "Due to traffic congestion, the ego-car had to come to a temporary halt even though the lights were green."
+    }
+  },
+  {
+    "video_id": "train0368.mp4",
+    "QA": {
+      "q": "Can you describe the road situation and the actions taken by the ego-car during the observed timeframe?",
+      "a": "The ego-car was initially stationary due to the red light and the road congestion ahead. After sometime, the road started to clear up and the congestion eased, allowing the ego-car to resume its forward motion. Towards the end of the observation period, the road branched toward the left and the ego-car adjusted its direction towards this left lane branch."
+    }
+  },
+  {
+    "video_id": "train1585.mp4",
+    "QA": {
+      "q": "Can you describe how the ego-car maneuvered in response to road signage during the drive?",
+      "a": "Sure, the ego-car noticed two stop signs during its ride. Upon seeing these signs, the car slowed down, and eventually came to a complete halt. After stopping, the ego-car made a left turn. Throughout this sequence, the car adjusted its direction several times to align with the road while maintaining a moderate speed before and after the turn."
+    }
+  },
+  {
+    "video_id": "test0444.mp4",
+    "QA": {
+      "q": "Can you describe the current driving scenario of the ego-car?",
+      "a": "The ego-car is driving in a line of vehicles. In front, there are evident signs of slowing down due to pedestrian crossings and a traffic light looming ahead. The ego-car slows down a bit twice to allow safe passage through two pedestrian crossings. Additionally, the vehicle also traverses through a T intersection. There is a signboard that needs attention right before a T intersection and another one just before passing the crosswalk. All these maneuvers are executed maintaining a balanced speed and carefully adjusting the car's position."
+    }
+  },
+  {
+    "video_id": "train0422.mp4",
+    "QA": {
+      "q": "Can you describe the main events and the ego-car's responses during the recent drive?",
+      "a": "During the drive, the road was somewhat busy observing several cars ahead. Initially, the ego-car executed a left turn and then proceeded straight within its lane. Then, it smoothly shifted into the right lane. While the earlier part of the drive was quite smooth, the ego-car had to significantly slow its speed and eventually come to a complete stop due to a traffic congestion that occurred further along the route. Throughout this period, a red light was consistently in sight, requiring continued attention to ensure safe driving."
+    }
+  },
+  {
+    "video_id": "train0083.mp4",
+    "QA": {
+      "q": "Can you describe the situation and actions of the ego-car during the given driving scenario?",
+      "a": "The ego-car was initially moving in a straight line when it had to stop due to a crossing vehicle, which seemed to be triggered by a road sign. Once the path was clear, the car continued its journey and turned left at an intersection, where it proceeded cautiously due to a vehicle merging into its lane. After the car completed the left turn and the merging vehicle was accounted for, the ego-car resumed driving straight. The car's movement varied throughout, slowing and stopping before the left turn and then accelerating and maintaining a steady drive after the completion of the turn."
+    }
+  },
+  {
+    "video_id": "train0618.mp4",
+    "QA": {
+      "q": "Can you describe the overall road situation that the ego-car faced and its response to it?",
+      "a": "The ego-car was initially driving forward in the right lane, heading towards a stop sign. In the meantime, a truck, in fact, ran the stop sign at the intersection ahead. Our car, thereby, spotted the crossing vehicle and consequently, reacted by gradually decelerating and adjusting its path slightly. The ego-car then had to pause momentarily at the stop sign. After ensuring it's safe to proceed, the car moved forward again, accelerating to pass through the intersection."
+    }
+  },
+  {
+    "video_id": "test1412.mp4",
+    "QA": {
+      "q": "Can you describe the current driving conditions and the position of the ego-car on the road?",
+      "a": "The ego-car is stationary in the left-turning lane at a red light. The oncoming traffic is steady, preventing turning on a yellow arrow. There seems to be significant congestion, which potentially contributed to the oncoming traffic and our need to stop. The car has held a slight leftward orientation while waiting for the light to turn green."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "After the halt, do we accelerate rapidly or gradually regain speed?",
+      "a": "After the halt, we gradually regained our speed."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "Did we stop due to the traffic light or was it because of the congestion?",
+      "a": "The stop was primarily due to the congestion on the road. "
+    }
+  },
+  {
+    "video_id": "train1059.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation while passing through the area and explaining the specific details witnessed?",
+      "a": "As our ego-car was moving ahead, a bicyclist was noticed on the left in the bike lane. Taking care of the biker's safety is necessary as there are two instances of T_intersection_passing. The car is maintained at a particular speed following the speed limit of 35 mph continuously without making sudden accelerations or decelerations to ensure a smooth ride. With the biker to close proximity, the car maneuvers itself with very slight left and right adjustments. During this situation, the biker was our immediate focus for about 3 seconds. The car passes two T-intersections, making small but necessary sudden movements to navigate safely. The movements and speed adjustments are continually monitored and made to provide an efficient and safe driving experience."
+    }
+  },
+  {
+    "video_id": "train1852.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario of the ego-car in a congested traffic situation?",
+      "a": "While in motion, the ego-car was initially maintaining a straight path in a stop-and-go traffic scenario. As the traffic congestion became more severe near the end of the observation period, the ego-car adjusted its speed appropriately to navigate the situation safely. It seemed to slow down considerably due to the heavy traffic before ultimately coming to a standstill."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "Could you tell me how the car reacted to the sign in the beginning of the journey?",
+      "a": "At first, the car was moving in a straight direction, but when it read the sign, it started to decelerate. The steering remained almost unchanged because there wasn't any necessity for an immediate turn. The car then came to a full stop as commanded by the sign."
+    }
+  },
+  {
+    "video_id": "train1110.mp4",
+    "QA": {
+      "q": "Based on the driving pattern, can we infer if the driver is being overly cautious or driving normally?",
+      "a": "From my perspective, the driver seems to be maintaining a normal driving behavior. The car is following the flow of traffic and keeping up with the speed; no sudden braking or extreme steering changes can be observed."
+    }
+  },
+  {
+    "video_id": "train3640.mp4",
+    "QA": {
+      "q": "Can you describe the driving scenario of the ego-car in relation to its actions, external prompts, and movements?",
+      "a": "The ego-car started off with a swift right turn. Soon after, it became apparent that there was a sign present, prompting the car to halt its movement. Following the stop, the vehicle continued straightforwardly, entering and passing through a T-intersection, after which it continued on its straight path: hence the car initially turned right, then it made a brief stop due to a sign before proceeding straight and passing through a T-intersection."
+    }
+  },
+  {
+    "video_id": "test0615.mp4",
+    "QA": {
+      "q": "Can you describe the challenging driving situation encountered by the ego-car?",
+      "a": "The ego-car is moving straight in daunting lighting situations. A vehicle crosses its path, demanding attention. The ego-car notices a sign, prompting it to halt completely. The sign was probably at an intersection, the ego-car proceeds motionless until it successfully traverses the intersection. It then picks up speed and keeps moving straightforward again."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "Amidst navigating around parked cars and turning right, how did our speed vary?",
+      "a": "We maintained a relatively stable speed while passing the parked cars. As we initiated the right turn, the car slowed down slightly for safety, which is a common practice. Once the turn was complete, the car gradually picked up speed again."
+    }
+  },
+  {
+    "video_id": "train3861.mp4",
+    "QA": {
+      "q": "Can you describe the situation and the ego-car's behavior on the road?",
+      "a": "The ego-car was moving straightforward on a road where a car was making a U-turn in front. When the traffic light turned red, our car began to slow down gradually. Once near the traffic signal, it came to a complete stop and remained in that position, waiting for the light to turn green."
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "Did we pass any stationary cars during our journey?",
+      "a": "Indeed, there were cars parked alongside the road as we traversed."
+    }
+  },
+  {
+    "video_id": "test0484.mp4",
+    "QA": {
+      "q": "Can you describe the driving situation that was observed?",
+      "a": "During the journey, when our ego-car approached an intersection, it stopped due to a red light. Simultaneously, we saw some pedestrians crossing the street and a vehicle was merging into our lane. The car remained stationary cautiously for this period. After ensuring the pedestrian's safety, the car started and continued its course turning right and steadily gained speed. Shortly afterwards, our car was required to turn right again, this time involving a T intersection rendezvous. This involved the car merging into the ongoing traffic while maintaining a steady pace."
+    }
+  },
+  {
+    "video_id": "test1053.mp4",
+    "QA": {
+      "q": "Could there be another occasion that requires more careful attention than the moments you have mentioned?",
+      "a": "Another key moment to pay attention to was when a sign was observed right after the occurrence of road work and pedestrian presence. As such signs often convey important roadway information or warnings, the ego-car may need to respond accordingly, depending on the nature of what the sign indicates. "
+    }
+  },
+  {
+    "video_id": "train1110.mp4",
+    "QA": {
+      "q": "If the speed limit drops substantially, would you predict our ego-car to adjust its speed accordingly?",
+      "a": "Based on the current behavior of keeping up with the flow of traffic, it's highly likely that our ego-car would decelerate to match the new speed limit. This would be in line with goal-oriented behavior intending to comply with traffic rules."
+    }
+  },
+  {
+    "video_id": "test0332.mp4",
+    "QA": {
+      "q": "Can you describe the road situation and the ego-car's reactions during the trip?",
+      "a": "Initially, the ego-car was stationary at a red light with a build-up of traffic around. Once the light turned green, the ego-car began to smoothly accelerate and move forwards before taking a sharp turn to the right. Meanwhile, there were pedestrians crossing ahead on the road. This caused the car to slow down and maneuver carefully to the right to proceed further. As the pedestrians cleared the path, the ego-car accelerated again, cruising down the new road."
+    }
+  },
+  {
+    "video_id": "test0880.mp4",
+    "QA": {
+      "q": "Was our progress hindered continuously or it was a sudden impediment?",
+      "a": "Our progress seemed to slow down gradually before coming to a complete halt. "
+    }
+  },
+  {
+    "video_id": "train1091.mp4",
+    "QA": {
+      "q": "How are we maneuvering through traffic in this rain?",
+      "a": "Right now, we're continuing to maintain a straight path."
+    }
+  },
+  {
+    "video_id": "test0423.mp4",
+    "QA": {
+      "q": "What about any steering wheel movement?",
+      "a": "No, the steering wheel was kept straight without any movement throughout this time. "
+    }
+  },
+  {
+    "video_id": "train4308.mp4",
+    "QA": {
+      "q": "Why did the car reduce its speed before an absolute stop?",
+      "a": "As we approached the red light from the 12th second, the car slowed down in anticipation of needing to stop according to traffic rules. "
+    }
+  },
+  {
+    "video_id": "test0447.mp4",
+    "QA": {
+      "q": "Can you describe the situation of the ego-car and the actions performed during this period?",
+      "a": "Sure, the ego-car is positioned at a busy intersection full of crossing vehicles, waiting for its turn to go right. Initially, with the increasing congestion, the ego-car had to completely stop. Once the congestion subsided, the ego-car stayed stationary for a while, allowing other vehicles to cross. After ensuring it was secure, the ego-car gradually made a right turn."
+    }
+  },
+  {
+    "video_id": "test1385.mp4",
+    "QA": {
+      "q": "Could you explain why the car suddenly stopped?",
+      "a": "I detected pedestrians crossing the road when the traffic light turned red. As we approached the intersection, safety measures demand that we yield to pedestrians with the right of way, which is why the car came to a halt."
+    }
+  },
+  {
+    "video_id": "train3892.mp4",
+    "QA": {
+      "q": "Can you detail out the visualization of the ego car's movement and surrounding scenarios during its ongoing drive?",
+      "a": "As the ego car progressed, initially it halted due to heavy congestion. After a pause, it started again but soon it encountered a red light. The turning of the car could be seen when it attempted to clear the congestion and later against the red light, it maintained its position, albeit slightly tilted. During the waiting period at red light, a vehicle was observed crossing the intersection."
+    }
+  },
+  {
+    "video_id": "train0739.mp4",
+    "QA": {
+      "q": "Can you describe the driving event that occurred with the pedestrian and the subsequent actions taken by the ego-car?",
+      "a": "The ego-car initially spotted a man walking down the street. The car then moved to veer around the pedestrian to keep safe distance. A vehicle was also observed crossing the path of the ego-car from the 5th to the 8th second, demanding attention. During this time, further into the drive, there was also a sign that the car adhered to from the 4th to the 15th second, causing the car to eventually come to a halt at the end of the road."
+    }
+  },
+  {
+    "video_id": "train3864.mp4",
+    "QA": {
+      "q": "Can you describe the sequence of driving actions and observations in this driving scene?",
+      "a": "The ego-car was initially moving straight ahead before encountering a red traffic light. As a response to the signal, the car turned left. After the left turn, the car adjusted its position by changing lanes to the right, allowing it to proceed smoothly in traffic. In the process of the right lane change, it also passed a crosswalk, continuing its journey straight on the road."
+    }
+  },
+  {
+    "video_id": "train0353.mp4",
+    "QA": {
+      "q": "Why did I turn right and what did I see in front of me after that?",
+      "a": "You made a right turn for some goal-specific reason. After you turned, a red traffic light had been a point of focus for the most part of your drive."
+    }
+  },
+  {
+    "video_id": "train3760.mp4",
+    "QA": {
+      "q": "What would have happened if there were moving vehicles instead of parked cars on the side of the road?",
+      "a": "If there were moving vehicles on the side of the road, our car would likely have had to adjust its speed and possibly its lane position to safely navigate among them. The exact response would depend on the speed and direction of the other vehicles."
+    }
+  },
+  {
+    "video_id": "train0006.mp4",
+    "QA": {
+      "q": "What was the driving scenario of the ego-car and how did it maneuver through the traffic?",
+      "a": "The ego-car was in a situation where it was not possible to make a turn legally due to other vehicles approaching from both front and behind. Additionally, the presence of bicycles in the lane made navigation more complex. Despite these obstructions, the car managed to proceed straight and eventually execute a left turn from an unconventional lane. This maneuver appears to be slightly abrupt, suggesting the requirement for quick decision making in response to the surrounding traffic and road conditions."
+    }
+  },
+  {
+    "video_id": "train4084.mp4",
+    "QA": {
+      "q": "Could you describe the maneuvers and events encompassing the recent driving situation according to the given data?",
+      "a": "Within the driving scene, there's traffic and a pedestrian noticed at an intersection. In response, the ego-car made a decision to make a right turn and continued in a straight path. A vehicle started crossing our path from the 9th second onward. The presence of a red signal required the ego-car to slow down and stop. This all occurred, while maintaining a consistent trajectory, in spite of small rotational adjustments occurring frequently throughout the drive to ensure proper alignment on the road. There were periods of acceleration initially, then a gradual decrease in speed, reflecting the reaction to the red light, leading to a complete stop."
+    }
+  },
+  {
+    "video_id": "test1385.mp4",
+    "QA": {
+      "q": "What do you think would have happened if there was no red light signal?",
+      "a": "If the light hadn't turned red, however, given pedestrians were crossing and having the right of way, the car would still have had to come to a stop to let them pass. Safety of all road users is paramount irrespective of the traffic signals."
+    }
+  },
+  {
+    "video_id": "train3242.mp4",
+    "QA": {
+      "q": "What could happen if there was a pedestrian crossing during the left turn?",
+      "a": "If a pedestrian had been crossing during the left turn, the car would have detected the pedestrian and taken appropriate action to ensure safety. This could potentially involve decelerating or coming to a full stop until the pedestrian was no longer in the lane. The car's main goal in such scenarios is to avoid putting any road users at risk."
+    }
+  },
+  {
+    "video_id": "train3321.mp4",
+    "QA": {
+      "q": "Can you describe the conditions and maneuvers the ego-car performed in this driving scene?",
+      "a": "The ego-car is currently in a school zone. Initially, it made a right turn. During this motion, the car's speed gradually increased. Shortly after the turn, the car's attention was drawn to a sign, possibly indicating a change in road conditions. Thereafter, the car continued straight towards a crosswalk, slightly reducing its speed. It maintained a steady course after passing the crosswalk."
+    }
+  },
+  {
+    "video_id": "train0308.mp4",
+    "QA": {
+      "q": "In case of an emergency stop, would the driver have been able to react promptly considering the current traffic situation?",
+      "a": "Given the traffic condition, an emergency stop might have been a bit challenging to execute promptly without causing disruption to other road users. However, as an AI assistant, I always maintain keen observation of the surrounding conditions and continuously calculate the safest possible maneuvers to ensure we can respond effectively to any sudden changes."
+    }
+  },
+  {
+    "video_id": "train2987.mp4",
+    "QA": {
+      "q": "What were the events and responses observed during the drive?",
+      "a": "A cyclist and a pedestrian were noticed crossing the street in front of the ego-car, which was moving straight in the right lane. Upon encountering traffic congestion, the ego-car decelerated and eventually stopped briefly. Shortly after, the ego-car halted again at a stop sign ahead. Subsequently, the car continued to move straight but slower in passing through a T intersection. Throughout these events, changes in the car's speed and direction were smoothly handled."
+    }
+  },
+  {
+    "video_id": "train3222.mp4",
+    "QA": {
+      "q": "Could you describe the current situation of the ego-car during the observed time frame?",
+      "a": "The ego-car was at a complete standstill in a parking spot. Despite the steering wheel's slight adjustment, the car did not show any movement and remained in the same parked position the entire time, making the maneuvering essentially consistent throughout. There were no notable road events observed for this duration."
+    }
+  }
+]
