@@ -16,3 +16,4 @@ ffmpeg
 git+https://github.com/LLaVA-VL/LLaVA-NeXT.git
 dotenv
 # flash-attn --no-build-isolation --no-cache-dir
+katna
