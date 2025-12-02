@@ -3,6 +3,10 @@
 ## Project Hierarchy
 root/  
 ├── HAD/  
+│   ├── questions/  
+│   │   ├── train.json  
+│   │   ├── test.json  
+│   │   └── val.json  
 │   ├── outputs/  
 │   │   ├── train/  
 │   │   ├── test/  
@@ -15,7 +19,11 @@ root/
 │       ├── train/  
 │       ├── test/  
 │       └── val/  
-├── SGTU/  
+├── SUTD/  
+│   ├── questions/  
+│   │   ├── train.json  
+│   │   ├── test.json  
+│   │   └── val.json  
 │   ├── outputs/  
 │   │   ├── train/  
 │   │   ├── test/  
@@ -28,7 +36,7 @@ root/
 │       ├── train/  
 │       ├── test/  
 │       └── val/  
-
+├── src/  
 
 > Reason: Unified processing since we always process all datasets together and they share the same exact format.
 
