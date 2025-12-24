@@ -140,3 +140,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video_64_frames_katna.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
+# python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video_64_frames.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
+# python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
+
+# python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video_8_frames_katna.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
