@@ -9,6 +9,7 @@ from argparse import ArgumentParser
 from tqdm import tqdm
 from src.extract_keyframes import extract_keyframes
 from loguru import logger
+import torchvision.transforms as T
 import pandas as pd
 import av
 import torch
@@ -25,6 +26,22 @@ _model = None
 _tokenizer = None
 _image_processor = None
 _current_device = None
+
+def get_dashcam_augmentation():
+    return T.Compose(
+        [
+            T.ToTensor(),
+            T.ColorJitter(
+                brightness=0.3,    # Handle night/day variations
+                contrast=0.3,      # Handle fog/rain/glare
+                saturation=0.2,    # Handle washed-out colors
+                hue=0.1            # Minor color shifts
+            ),
+            T.RandomAdjustSharpness(sharpness_factor=1.5, p=0.3),  # Handle rain blur
+            T.RandomAutocontrast(p=0.2),  # Handle low contrast scenes
+            T.ToPILImage(),
+        ]
+    )
 
 def _load_model(device: str = "cuda:7"):
     """Load the LLaVA-Video model (singleton pattern).
@@ -93,6 +110,7 @@ def choose_answer(
     for keyframe_path in keyframes:
         try:
             img = Image.open(keyframe_path).convert("RGB")
+            img = get_dashcam_augmentation()(img)
             images.append(np.array(img))
         except Exception as e:
             print(f"Warning: Failed to load image {keyframe_path}: {e}")
@@ -467,4 +485,4 @@ if __name__ == "__main__":
 # # For test set
 # python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_100/ --keyframe_dir ./SUTD/keyframes/ --device cuda:5 --num_frames 64 --mode test
 # python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_6052/ --keyframe_dir ./SUTD/keyframes/ --device cuda:5 --num_frames 64 --mode test
-# python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_6075_8_frames/ --keyframe_dir ./SUTD/keyframes/ --device cuda:5 --num_frames 8 --mode test
+# python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs/ --keyframe_dir ./SUTD/keyframes_augment/ --device cuda:2 --num_frames 8 --mode test

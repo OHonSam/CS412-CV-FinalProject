@@ -4,6 +4,13 @@ videos/
 HAD/
 SUTD/
 clipped/
+.kaggle/
+kaggle_dataset/
+archive/
+upload_to_kaggle_train.sh
+checkpoints/
+BLEURT-20/
+LLaVA-NeXT/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
