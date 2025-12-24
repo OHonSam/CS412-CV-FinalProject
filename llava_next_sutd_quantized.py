@@ -9,6 +9,7 @@ from argparse import ArgumentParser
 from tqdm import tqdm
 from src.extract_keyframes import extract_keyframes
 from loguru import logger
+from transformers import BitsAndBytesConfig
 import pandas as pd
 import av
 import torch
@@ -18,7 +19,6 @@ import gc
 import os
 import json
 import traceback
-from transformers import BitsAndBytesConfig
 
 warnings.filterwarnings("ignore")
 
@@ -27,64 +27,47 @@ _tokenizer = None
 _image_processor = None
 _current_device = None
 
-def _load_model(device: str = "cuda:7", quantization: str = "4bit"):
-    """Load the LLaVA-Video model with quantization (singleton pattern).
-
-    Model is kept in memory across multiple video processing for efficiency.
-    
-    Args:
-        device (str): Device to load model on
-        quantization (str): Quantization mode - "4bit", "8bit", or None for full precision
-    """
+def _load_model(device: str = "cuda:7", quantize: str = "4bit"):
+    """Load the LLaVA-Video model with optional quantization."""
     global _model, _processor, _tokenizer, _image_processor, _current_device
 
     if _model is None or _current_device != device:
         if _model is not None:
-            # Clean up previous model to free memory
             del _model
             gc.collect()
             torch.cuda.empty_cache()
 
-        print(f"Loading LLaVA-Video model with {quantization} quantization...")
+        print("Loading LLaVA-Video model...")
         pretrained = "lmms-lab/LLaVA-Video-7B-Qwen2"
         model_name = "llava_qwen"
 
         # Configure quantization
-        if quantization == "4bit":
+        if quantize == "4bit":
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_compute_dtype=torch.bfloat16,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4"
             )
-            torch_dtype = torch.bfloat16
-        elif quantization == "8bit":
+        elif quantize == "8bit":
             quantization_config = BitsAndBytesConfig(
-                load_in_8bit=True,
-                llm_int8_threshold=6.0,
+                load_in_8bit=True
             )
-            torch_dtype = torch.bfloat16
         else:
             quantization_config = None
-            torch_dtype = "bfloat16"
 
-        # Load model with quantization config
         _tokenizer, _model, _image_processor, max_length = load_pretrained_model(
             pretrained,
             None,
             model_name,
-            torch_dtype=torch_dtype,
-            device_map="auto",
-            quantization_config=quantization_config,
+            torch_dtype="bfloat16",
+            device_map=device,
+            quantization_config=quantization_config,  # Add this
         )
 
-        # DO NOT use .to() for quantized models - device_map handles placement
-        # The model is already on the correct device via device_map parameter
-        
         _model.eval()
         _current_device = device
-        print(f"\nFinal VRAM usage: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
-        print(f"Peak VRAM usage: {torch.cuda.max_memory_allocated() / 1024**3:.2f} GB")
+        print("LLaVA-Video model loaded successfully")
 
     return _tokenizer, _model, _image_processor
 
@@ -115,7 +98,6 @@ def choose_answer(
     """
     # Load model
     tokenizer, model, image_processor = _load_model(device=device)
-    model_device = next(model.parameters()).device
 
     # Load images from keyframe paths
     images = []
@@ -137,7 +119,7 @@ def choose_answer(
     # Preprocess frames
     video = (
         image_processor.preprocess(video_frames, return_tensors="pt")["pixel_values"]
-        .to(model_device)
+        .to(device)
         .bfloat16()
     )
     video = [video]
@@ -182,7 +164,7 @@ def choose_answer(
             prompt_question, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt"
         )
         .unsqueeze(0)
-        .to(model_device)
+        .to(device)
     )
 
     # Generate response
@@ -292,7 +274,6 @@ def process_dataset(
     num_frames: int = 8,
     katna_extraction: bool = False,
     device: str = "cuda:7",
-    quantization: str = "4bit",
     mode="test",
 ):
     """Process all videos in dataset and generate answers.
@@ -300,19 +281,16 @@ def process_dataset(
     Args:
         video_dir (str): Directory containing videos
         questions_path (str): Path to questions JSON file
-        keyframe_dir (str): Directory for keyframes
         output_dir (str): Directory to save output
         num_frames (int): Number of frames to extract per video
-        katna_extraction (bool): Use Katna for extraction
-        device (str): Device to run on
-        quantization (str): Quantization mode - "4bit", "8bit", or None
-        mode (str): Dataset mode
     """
     # Load questions
     questions_data = []
 
     with open(questions_path, "r", encoding="utf-8") as f:
         for line_num, line in enumerate(f):
+            # if line_num > 100:
+            #     break
             if line.strip():
                 try:
                     data = json.loads(line)
@@ -358,7 +336,7 @@ def process_dataset(
             print(f"Warning: Video not found: {video_path}")
             record_ids.append(record_id)
             file_names.append(vid_filename)
-            answers.append("0")
+            answers.append("0")  # Default answer for missing video
             validity_flags.append(False)
             continue
 
@@ -401,7 +379,7 @@ def process_dataset(
             traceback.print_exc()
             record_ids.append(record_id)
             file_names.append(vid_filename)
-            answers.append("0")
+            answers.append("0")  # Default answer on error
             validity_flags.append(False)
 
     # Save results
@@ -427,19 +405,19 @@ def process_dataset(
 
 if __name__ == "__main__":
     parser = ArgumentParser(
-        description="Process video dataset and generate answers using LLaVA-Video with quantization."
+        description="Process video dataset and generate answers using LLaVA-NeXT."
     )
     parser.add_argument(
         "--video_dir",
         type=str,
         required=True,
-        help="Path to the input video directory",
+        help="Path to the input video directory (e.g., ./HAD/videos/test/)",
     )
     parser.add_argument(
         "--questions_path",
         type=str,
         required=True,
-        help="Path to the questions JSON file",
+        help="Path to the questions JSON file (e.g., ./HAD/questions/test.json)",
     )
     parser.add_argument(
         "--output_dir",
@@ -473,15 +451,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--device",
         type=str,
-        default="cuda:0",
-        help="Device to run the model on (default: cuda:0)",
-    )
-    parser.add_argument(
-        "--quantization",
-        type=str,
-        default="4bit",
-        choices=["4bit", "8bit", "none"],
-        help="Quantization mode: 4bit, 8bit, or none (default: 4bit)",
+        default="cuda:7",
+        help="Device to run the model on (default: cuda)",
     )
 
     args = parser.parse_args()
@@ -489,11 +460,7 @@ if __name__ == "__main__":
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Set quantization to None if "none" is specified
-    quant_mode = None if args.quantization == "none" else args.quantization
-
-    # Pre-load model
-    _load_model(device=args.device, quantization=quant_mode)
+    _load_model(device=args.device)
 
     # Process dataset
     process_dataset(
@@ -504,12 +471,8 @@ if __name__ == "__main__":
         num_frames=args.num_frames,
         katna_extraction=args.katna_extraction,
         device=args.device,
-        quantization=quant_mode,
         mode=args.mode,
     )
 
-# Example usage with 4-bit quantization:
-# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_4bit/ --keyframe_dir ./SUTD/keyframes/ --device cuda:0 --num_frames 64 --mode test --quantization 4bit
 
-# Example usage with 8-bit quantization:
-# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_8bit/ --keyframe_dir ./SUTD/keyframes/ --device cuda:0 --num_frames 64 --mode test --quantization 8bit
+# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_quantized/ --keyframe_dir ./SUTD/keyframes/ --device cuda:3 --num_frames 8 --mode test

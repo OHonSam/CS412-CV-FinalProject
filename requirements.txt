@@ -17,3 +17,5 @@ git+https://github.com/LLaVA-VL/LLaVA-NeXT.git
 dotenv
 # flash-attn --no-build-isolation --no-cache-dir
 katna
+# conda create --prefix /datastore/clc_hcmus/ZaAIC/envs/llava_env python=3.10 -y
+# pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.6/flash_attn-2.5.6+cu122torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl

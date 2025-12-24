@@ -210,8 +210,8 @@ def main():
     # Load test results with model answers
     # input_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/questions/test_with_answers.json"
     # output_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/questions/test_evaluation_results_with_llm_judge.json"
-    input_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/questions/test_with_answers.json"
-    output_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/questions/test_evaluation_results_with_llm_judge.json"
+    input_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/outputs/test_with_answers.json"
+    output_json_path = "/datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/outputs/test_evaluation_results_with_llm_judge.json"
     
     
     print(f"Loading results from {input_json_path}")
