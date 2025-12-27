@@ -70,6 +70,7 @@ def main():
     ap.add_argument("--max_train_samples", type=int, default=None)
     ap.add_argument("--max_val_samples", type=int, default=None)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
     args = ap.parse_args()
 
     torch.manual_seed(args.seed)
@@ -84,7 +85,7 @@ def main():
     vocab_path = str(out_dir / "vocab.json")
     vocab = build_or_load_vocab(vocab_path, str(train_q))
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = args.device
 
     train_ds = SUTDMCQ4Dataset(
         questions_path=str(train_q),

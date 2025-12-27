@@ -3,6 +3,25 @@ import torch
 import json
 import os
 from tqdm import tqdm
+from torchvision import transforms as T
+
+os.environ["HF_HOME"] = "/datastore/clc_hcmus/ZaAIC/hf_cache"
+
+def get_dashcam_augmentation():
+    return T.Compose(
+        [
+            T.ToTensor(),
+            T.ColorJitter(
+                brightness=0.3,    # Handle night/day variations
+                contrast=0.3,      # Handle fog/rain/glare
+                saturation=0.2,    # Handle washed-out colors
+                hue=0.1            # Minor color shifts
+            ),
+            T.RandomAdjustSharpness(sharpness_factor=1.5, p=0.3),  # Handle rain blur
+            T.RandomAutocontrast(p=0.2),  # Handle low contrast scenes
+            T.ToPILImage(),
+        ]
+    )
 
 # model setting
 model_path = 'OpenGVLab/VideoChat-Flash-Qwen2_5-2B_res448'

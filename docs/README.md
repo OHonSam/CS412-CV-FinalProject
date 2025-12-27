@@ -100,3 +100,39 @@ Accuracy:        45.4650%
 
 Wrong answers written to: .\sutd_wrong_ans_64_frames.csv
 
+- 8 frames with CNN + LSTM baseline
+=== Evaluation Report ===
+GT file:   .\answers\sutd_test_gt.csv
+PRED file: .\sutd_cnn_lstm_predictions.csv
+Total GT ids:    6075
+Total PRED ids:  6075
+Compared ids:    6075
+Correct:         1833
+Wrong:           4242
+Accuracy:        30.1728%
+
+=== Evaluation Report ===
+GT file:   .\answers\sutd_test_gt.csv
+PRED file: .\answers\sutd_cnn_lstm_predictions.csv
+Total GT ids:    6075
+Total PRED ids:  6075
+Compared ids:    6075
+Correct:         1823
+Wrong:           4252
+Accuracy:        30.0082%
+
+Wrong answers written to: .\sutd_cnn_lstm_wrong_ans.csv
+
+“We choose CNN+LSTM as a compute-efficient baseline for long dashcam videos and limited supervised data. Despite Transformers being popular by 2021, self-attention over long frame sequences is expensive and often requires large-scale pretraining to outperform simpler recurrent models. This baseline also makes it easier to interpret how frame sampling and augmentation affect causal reasoning accuracy.”
+
+## Explore Video-Specific Encoders:
+VideoChat vs Llava-NeXt
+
+## Error Analysis
+- Databset issues: mislabeled answers, ambiguous questions
+- Model issues: difficulty understanding temporal dynamics, complex reasoning
+
+## Video Captioning?
+
+
+## 

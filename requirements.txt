@@ -15,7 +15,9 @@ decord
 ffmpeg
 git+https://github.com/LLaVA-VL/LLaVA-NeXT.git
 dotenv
+bitsandbytes==0.48.2
 # flash-attn --no-build-isolation --no-cache-dir
 katna
 # conda create --prefix /datastore/clc_hcmus/ZaAIC/envs/llava_env python=3.10 -y
 # pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.6/flash_attn-2.5.6+cu122torch2.1cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+# https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl

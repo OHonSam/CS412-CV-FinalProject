@@ -20,6 +20,7 @@ import os
 import json
 import traceback
 
+os.environ["HF_HOME"] = "/datastore/clc_hcmus/ZaAIC/hf_cache"
 warnings.filterwarnings("ignore")
 
 _model = None
@@ -74,6 +75,10 @@ def _load_model(device: str = "cuda:7"):
         _model.eval()
         _current_device = device
         print("LLaVA-Video model loaded successfully")
+    
+    
+    print(f"VRAM after loading model: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
+    print(f"VRAM reserved: {torch.cuda.memory_reserved() / 1024**3:.2f} GB")
 
     return _tokenizer, _model, _image_processor
 
@@ -333,7 +338,8 @@ def process_dataset(
         record_id = item[0]
         vid_filename = item[2]
         q_body = item[4]
-        choices = [item[5], item[6], item[7], item[8]]
+        choices = [item[i] if item[i].strip() != "" else "<EMPTY_CHOICE>" for i in range(5, 9)]
+
         logger.debug(f"Processing video: {vid_filename} with record_id: {record_id}")
 
         # Construct video path
@@ -408,7 +414,6 @@ def process_dataset(
     if not katna_extraction:
         if os.path.exists(temp_dir):
             os.rmdir(temp_dir)
-
 
 if __name__ == "__main__":
     parser = ArgumentParser(
@@ -485,4 +490,4 @@ if __name__ == "__main__":
 # # For test set
 # python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_100/ --keyframe_dir ./SUTD/keyframes/ --device cuda:5 --num_frames 64 --mode test
 # python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_6052/ --keyframe_dir ./SUTD/keyframes/ --device cuda:5 --num_frames 64 --mode test
-# python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs/ --keyframe_dir ./SUTD/keyframes_augment/ --device cuda:2 --num_frames 8 --mode test
+# python llava_next_sutd.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs/ --keyframe_dir ./SUTD/keyframes_augment/ --device cuda:3 --num_frames 8 --mode test

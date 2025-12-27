@@ -11,6 +11,9 @@ upload_to_kaggle_train.sh
 checkpoints/
 BLEURT-20/
 LLaVA-NeXT/
+outputs/
+outputs_tmux/
+VideoChat-Flash/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
