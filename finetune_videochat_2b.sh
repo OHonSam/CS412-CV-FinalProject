@@ -1,5 +1,5 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=7
+export CUDA_VISIBLE_DEVICES=1
 
 # === 1. SET CUDA ENVIRONMENT ===
 # Pointing to your local llava_env where nvcc was found

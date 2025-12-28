@@ -1,0 +1,5 @@
+datasets:
+  - json_path: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/sutd_llava_train.json
+    data_root: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/SUTD/videos/
+    media_type: video
+    sampling_strategy: all

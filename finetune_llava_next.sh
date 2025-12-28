@@ -1,5 +1,6 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=7
+export CUDA_VISIBLE_DEVICES=0
+export HF_HOME="/datastore/clc_hcmus/ZaAIC/hf_cache"
 
 # === 1. SET CUDA ENVIRONMENT ===
 # Pointing to your local llava_env where nvcc was found
@@ -28,7 +29,7 @@ cd "$CODE_BASE"
 
 # Using python -m deepspeed.launcher.runner to invoke the specific deepspeed in your env
 python3 -m deepspeed.launcher.runner --num_gpus=1 llava/train/train_mem.py \
-    --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
+    --lora_enable True --lora_r 64 --lora_alpha 128 --mm_projector_lr 2e-5 \
     --deepspeed ./scripts/zero3.json \
     --model_name_or_path lmms-lab/LLaVA-Video-7B-Qwen2 \
     --version qwen_1_5 \
@@ -40,7 +41,7 @@ python3 -m deepspeed.launcher.runner --num_gpus=1 llava/train/train_mem.py \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --image_aspect_ratio anyres \
-    --frames_upbound 32 \
+    --frames_upbound 8 \
     --group_by_modality_length True \
     --bf16 True \
     --output_dir "$OUTPUT_DIR" \
@@ -61,4 +62,4 @@ python3 -m deepspeed.launcher.runner --num_gpus=1 llava/train/train_mem.py \
     --model_max_length 8192 \
     --gradient_checkpointing True \
     --dataloader_num_workers 4 \
-    --report_to tensorboard
+    --report_to tensorboard \
