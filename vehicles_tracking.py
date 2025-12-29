@@ -21,7 +21,6 @@ def load_model_weights(weights_path, device):
 
 def object_tracking(model, video_path, output_path):
     cap = cv2.VideoCapture(video_path)
-    logger.info(f"Opened video file: {video_path}")
 
     # Get video properties for VideoWriter
     fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -35,6 +34,10 @@ def object_tracking(model, video_path, output_path):
     # Store the track history
     track_history = defaultdict(lambda: [])
 
+    # Define colors for different classes (you can customize)
+    np.random.seed(42)
+    colors = np.random.randint(0, 255, size=(80, 3), dtype=np.uint8)
+
     frame_count = 0
 
     # Loop through the video frames
@@ -44,27 +47,40 @@ def object_tracking(model, video_path, output_path):
 
         if success:
             # Run YOLO11 tracking on the frame, persisting tracks between frames
-            result = model.track(frame, persist=True)[0]
+            result = model.track(frame, persist=True, tracker="botsort.yaml")[0]
 
             # Get the boxes and track IDs
-            if result.boxes and result.boxes.is_track:
-                boxes = result.boxes.xywh.cpu()
-                track_ids = result.boxes.id.int().cpu().tolist()
+            if result.boxes is not None and len(result.boxes) > 0:
+                boxes = result.boxes.xyxy.cpu().numpy()  # x1, y1, x2, y2 format
+                classes = result.boxes.cls.cpu().numpy().astype(int)
+                track_ids = result.boxes.id.int().cpu().tolist() if result.boxes.id is not None else [None] * len(boxes)
 
-                # Visualize the result on the frame
-                frame = result.plot()
+                # Draw boxes and class names manually (no ID, no confidence)
+                for box, cls, track_id in zip(boxes, classes, track_ids):
+                    x1, y1, x2, y2 = map(int, box)
+                    class_name = model.names[cls]
+                    color = tuple(map(int, colors[cls]))
 
-                # Plot the tracks
-                for box, track_id in zip(boxes, track_ids):
-                    x, y, w, h = box
-                    track = track_history[track_id]
-                    track.append((float(x), float(y)))  # x, y center point
-                    if len(track) > 30:  # retain 30 tracks for 30 frames
-                        track.pop(0)
+                    # Draw bounding box
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
 
-                    # Draw the tracking lines
-                    points = np.hstack(track).astype(np.int32).reshape((-1, 1, 2))
-                    cv2.polylines(frame, [points], isClosed=False, color=(230, 230, 230), thickness=10)
+                    # Draw class name only (no ID, no confidence)
+                    label = class_name
+                    (label_w, label_h), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
+                    cv2.rectangle(frame, (x1, y1 - label_h - 10), (x1 + label_w, y1), color, -1)
+                    cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+
+                    # Track history for drawing lines
+                    if track_id is not None:
+                        cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+                        track = track_history[track_id]
+                        track.append((cx, cy))
+                        if len(track) > 30:
+                            track.pop(0)
+
+                        # Draw tracking lines
+                        points = np.array(track, dtype=np.int32).reshape((-1, 1, 2))
+                        cv2.polylines(frame, [points], isClosed=False, color=(230, 230, 230), thickness=2)
 
             # Write frame to output video
             out.write(frame)
@@ -106,7 +122,7 @@ if __name__ == "__main__":
         output_path = Path(output_dir) / video_filename
         logger.info(f"Processing video: {video_filename}")
         object_tracking(model, video_file, output_path.as_posix())
-        
+
         # Convert to H.264 format
         # Keep the same filename and delete the output_path after conversion
         h264_output_path = output_path.with_name(output_path.stem + '_h264.mp4')
