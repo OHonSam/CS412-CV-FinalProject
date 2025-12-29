@@ -1,0 +1,10 @@
+dataset:
+  SUTD:
+    videos_dir: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/SUTD/videos
+    questions_dir: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/SUTD/questions
+  HAD:
+    videos_dir: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/videos
+    questions_dir: /datastore/clc_hcmus/ZaAIC/CS412-CV-FinalProject/HAD/questions
+model:
+  yolo_weights: yolo11n.pt
+  device: cuda:7

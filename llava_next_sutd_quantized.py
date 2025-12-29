@@ -197,6 +197,8 @@ def choose_answer(
     - If a choice claims "there is no X" / "no accident" / "no barrier", verify presence/absence across ALL frames.
     - Prefer the option most consistent with the full temporal sequence (not a single frame).
     - If two options seem plausible, choose the one best supported by visible causality/timing.
+    - Only answer based on what you can CLEARLY see in the video
+    - Do not guess or assume events that are not clearly visible
 
     TASK-SPECIFIC CHECKLIST (do silently):
     A) Basic Understanding:

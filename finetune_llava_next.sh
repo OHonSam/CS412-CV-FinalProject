@@ -1,5 +1,5 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 export HF_HOME="/datastore/clc_hcmus/ZaAIC/hf_cache"
 
 # === 1. SET CUDA ENVIRONMENT ===
