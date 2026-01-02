@@ -168,7 +168,7 @@ def extract_letter(answer):
     return None
 
 
-def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, output_path=None):
+def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, output_path=None, log_interval=100):
     """
     Run benchmark on all questions.
     """
@@ -188,7 +188,7 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
     # Track accuracy by question type
     accuracy_by_type = {}
     
-    for item in tqdm(questions, desc="Processing"):
+    for idx, item in enumerate(tqdm(questions, desc="Processing")):
         # Get video path
         video_name = item['video']
         video_path = os.path.join(video_dir, video_name)
@@ -242,13 +242,62 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
             'is_correct': is_correct
         }
         results.append(result)
+        
+        # Log every log_interval questions
+        if (idx + 1) % log_interval == 0:
+            current_accuracy = correct / total if total > 0 else 0
+            print(f"\n{'='*60}")
+            print(f"PROGRESS LOG - Question {idx + 1}/{len(questions)}")
+            print(f"{'='*60}")
+            print(f"Running accuracy: {correct}/{total} ({current_accuracy*100:.2f}%)")
+            print(f"Skipped so far: {skipped}")
+            
+            # Log accuracy by type so far
+            print(f"\nAccuracy by type so far:")
+            for qt, stats in sorted(accuracy_by_type.items()):
+                type_acc = stats['correct'] / stats['total'] if stats['total'] > 0 else 0
+                print(f"  {qt}: {stats['correct']}/{stats['total']} ({type_acc*100:.2f}%)")
+            
+            # Log the current (100th) question details
+            print(f"\n--- Question #{idx + 1} Details ---")
+            print(f"Video: {video_name}")
+            print(f"Question: {question}")
+            print(f"Choices: {choices}")
+            print(f"Correct Answer: {correct_answer}")
+            print(f"Model Answer: {model_answer}")
+            print(f"Predicted: {predicted}")
+            print(f"Is Correct: {'✓' if is_correct else '✗'}")
+            print(f"{'='*60}\n")
+            
+            # Save intermediate results
+            if output_path:
+                intermediate_output = output_path.replace('.json', f'_checkpoint_{idx + 1}.json')
+                intermediate_data = {
+                    'checkpoint': idx + 1,
+                    'accuracy': current_accuracy,
+                    'correct': correct,
+                    'total': total,
+                    'skipped': skipped,
+                    'accuracy_by_type': {
+                        k: {
+                            'correct': v['correct'],
+                            'total': v['total'],
+                            'accuracy': v['correct'] / v['total'] if v['total'] > 0 else 0
+                        }
+                        for k, v in accuracy_by_type.items()
+                    },
+                    'results': results
+                }
+                with open(intermediate_output, 'w', encoding='utf-8') as f:
+                    json.dump(intermediate_data, f, indent=2, ensure_ascii=False)
+                print(f"Checkpoint saved to: {intermediate_output}")
     
     # Calculate overall accuracy
     accuracy = correct / total if total > 0 else 0
     
     # Print summary
     print("\n" + "="*60)
-    print("BENCHMARK RESULTS")
+    print("FINAL BENCHMARK RESULTS")
     print("="*60)
     print(f"Total questions: {total}")
     print(f"Skipped (video not found): {skipped}")
@@ -257,14 +306,14 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
     print("="*60)
     
     # Print accuracy by question type
-    print("\nACCURACY BY QUESTION TYPE:")
+    print("\nFINAL ACCURACY BY QUESTION TYPE:")
     print("-"*40)
     for q_type, stats in sorted(accuracy_by_type.items()):
         type_acc = stats['correct'] / stats['total'] if stats['total'] > 0 else 0
         print(f"  {q_type}: {stats['correct']}/{stats['total']} ({type_acc*100:.2f}%)")
     print("="*60)
     
-    # Save results if output path provided
+    # Save final results if output path provided
     if output_path:
         output_data = {
             'accuracy': accuracy,
@@ -283,7 +332,7 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
         }
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
-        print(f"\nResults saved to: {output_path}")
+        print(f"\nFinal results saved to: {output_path}")
     
     # Print some examples (first 5 incorrect ones)
     print("\n" + "="*60)
@@ -305,9 +354,10 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
 def main():
     # ============ CONFIGURATION ============
     model_path = "OpenGVLab/VideoChat-Flash-Qwen2-7B_res448"
-    video_dir = "/kaggle/input/sutd-traffic-video-qa/SUTD/videos"  # Directory containing videos
-    question_path = "/root/CS412-CV-FinalProject/VideoChat-Flash/R2_test.jsonl"  # JSONL file with questions
+    video_dir = "/root/CS412-CV-FinalProject/videos"  # Directory containing videos
+    question_path = "/root/CS412-CV-FinalProject/R2_test.jsonl"  # JSONL file with questions
     output_path = "/root/CS412-CV-FinalProject/results.json"  # Output file for results
+    log_interval = 100  # Log every N questions
     # =======================================
     
     # Check paths exist
@@ -337,7 +387,8 @@ def main():
     # Run benchmark
     results, accuracy = run_benchmark(
         model, tokenizer, image_processor,
-        video_dir, question_path, output_path
+        video_dir, question_path, output_path,
+        log_interval=log_interval
     )
 
 
