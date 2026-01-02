@@ -354,7 +354,7 @@ def run_benchmark(model, tokenizer, image_processor, video_dir, question_path, o
 def main():
     # ============ CONFIGURATION ============
     model_path = "OpenGVLab/VideoChat-Flash-Qwen2-7B_res448"
-    video_dir = "/root/CS412-CV-FinalProject/videos"  # Directory containing videos
+    video_dir = "/kaggle/input/sutd-traffic-video-qa/SUTD/videos"  # Directory containing videos
     question_path = "/root/CS412-CV-FinalProject/R2_test.jsonl"  # JSONL file with questions
     output_path = "/root/CS412-CV-FinalProject/results.json"  # Output file for results
     log_interval = 100  # Log every N questions
