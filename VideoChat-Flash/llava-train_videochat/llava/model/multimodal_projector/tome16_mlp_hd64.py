@@ -12,7 +12,6 @@ import torch.nn.functional as F
 
 
 
-
 # def bipartite_soft_matching(
 #     metric: torch.Tensor,
 #     r: int, 
@@ -72,23 +71,14 @@ import torch.nn.functional as F
 def bipartite_soft_matching(
     metric: torch.Tensor,
     r: int,
-    query_embedding: torch.Tensor = None,  # NEW: query embedding for relevance
-    relevance_weight: float = 0.3,           # NEW: how much to weight relevance
+    query_embedding: torch.Tensor = None,
+    relevance_weight: float = 0.3,
 ) -> Tuple[Callable, Callable]:
     """
     Applies ToMe with a balanced matching set (50%, 50%).
     
-    Now supports query-aware merging: tokens relevant to the query
-    are less likely to be merged.
-
     Input size is [batch, tokens, channels].
     r indicates the number of tokens to remove (max 50% of tokens).
-    
-    Args:
-        metric: (B, N, C) token features for computing similarity
-        r: number of tokens to merge/remove
-        query_embedding: (C,) or (B, C) query embedding for relevance scoring
-        relevance_weight: weight for relevance penalty (0 = original ToMe)
     """
     protected = 0
 
@@ -104,48 +94,61 @@ def bipartite_soft_matching(
         # Original similarity scores
         scores = a @ b.transpose(-1, -2)
 
-        # ============== NEW: Query-Aware Relevance ==============
+        # ============== Query-Aware Relevance ==============
         if query_embedding is not None:
-            # Normalize query embedding
+            batch_size = a.shape[0]
+            
+            # Ensure query_embedding has correct shape
             if query_embedding.dim() == 1:
                 query_embedding = query_embedding.unsqueeze(0)  # (1, C)
-            query_embedding = query_embedding / query_embedding.norm(dim=-1, keepdim=True)
             
-            # Project query to same dimension as metric if needed
-            # metric is (B, N, C_metric), query is (B, C_query)
-            # They may have different dimensions, so we need to handle this
+            # Expand query to match batch size: (1, C) -> (B, C)
+            if query_embedding.shape[0] == 1 and batch_size > 1:
+                query_embedding = query_embedding.expand(batch_size, -1)  # (B, C)
             
-            if query_embedding.shape[-1] != metric.shape[-1]:
-                # Query embedding is in LLM space, metric is in vision space
-                # Use mean pooling to reduce query to metric dimension
-                # This is a simple approach - you could also add a learned projection
-                query_dim = query_embedding.shape[-1]
-                metric_dim = metric.shape[-1]
-                
+            # Normalize query
+            query_embedding = query_embedding / (query_embedding.norm(dim=-1, keepdim=True) + 1e-6)
+            
+            # Handle dimension mismatch between query and metric
+            query_dim = query_embedding.shape[-1]
+            metric_dim = a.shape[-1]
+            
+            if query_dim != metric_dim:
+                # Project query to metric dimension by truncating or padding
                 if query_dim > metric_dim:
-                    # Reshape and mean pool: (B, C_query) -> (B, C_metric)
-                    # Simple approach: take first metric_dim dimensions
                     query_embedding = query_embedding[..., :metric_dim]
-                    query_embedding = query_embedding / query_embedding.norm(dim=-1, keepdim=True)
+                else:
+                    # Pad with zeros if query is smaller
+                    padding = torch.zeros(
+                        query_embedding.shape[0], metric_dim - query_dim,
+                        device=query_embedding.device, dtype=query_embedding.dtype
+                    )
+                    query_embedding = torch.cat([query_embedding, padding], dim=-1)
+                
+                # Re-normalize after adjustment
+                query_embedding = query_embedding / (query_embedding.norm(dim=-1, keepdim=True) + 1e-6)
             
-            # Compute relevance: how similar each token is to the query
-            # a: (B, N/2, C), query_embedding: (B, C) -> (B, C, 1)
+            # Compute relevance: (B, N/2, C) @ (B, C, 1) -> (B, N/2, 1)
             query_embedding = query_embedding.unsqueeze(-1)  # (B, C, 1)
             
             relevance_a = torch.bmm(a, query_embedding).squeeze(-1)  # (B, N/2)
             relevance_b = torch.bmm(b, query_embedding).squeeze(-1)  # (B, N/2)
             
             # Normalize relevance to [0, 1]
-            relevance_a = (relevance_a - relevance_a.min()) / (relevance_a.max() - relevance_a.min() + 1e-6)
-            relevance_b = (relevance_b - relevance_b.min()) / (relevance_b.max() - relevance_b.min() + 1e-6)
+            relevance_a_min = relevance_a.min(dim=-1, keepdim=True)[0]
+            relevance_a_max = relevance_a.max(dim=-1, keepdim=True)[0]
+            relevance_a = (relevance_a - relevance_a_min) / (relevance_a_max - relevance_a_min + 1e-6)
             
-            # Create relevance penalty matrix
-            # High relevance pairs should have LOWER merge scores
-            # relevance_penalty[i,j] = relevance_a[i] + relevance_b[j]
-            relevance_penalty = relevance_a.unsqueeze(-1) + relevance_b.unsqueeze(-2)  # (B, N/2, N/2)
+            relevance_b_min = relevance_b.min(dim=-1, keepdim=True)[0]
+            relevance_b_max = relevance_b.max(dim=-1, keepdim=True)[0]
+            relevance_b = (relevance_b - relevance_b_min) / (relevance_b_max - relevance_b_min + 1e-6)
             
-            # Normalize penalty to [0, 1]
-            relevance_penalty = relevance_penalty / (relevance_penalty.max() + 1e-6)
+            # Create relevance penalty matrix: (B, N/2, N/2)
+            relevance_penalty = relevance_a.unsqueeze(-1) + relevance_b.unsqueeze(-2)
+            
+            # Normalize penalty
+            penalty_max = relevance_penalty.amax(dim=(-1, -2), keepdim=True)
+            relevance_penalty = relevance_penalty / (penalty_max + 1e-6)
             
             # Apply penalty: reduce merge scores for relevant token pairs
             scores = scores - relevance_weight * relevance_penalty

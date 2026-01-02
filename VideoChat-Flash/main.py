@@ -95,17 +95,17 @@ def main():
     # ============ CONFIGURATION ============
     # Change these to your paths
     model_path = "OpenGVLab/VideoChat-Flash-Qwen2-7B_res448"
-    video_path = "test_video.mp4"  # Your video file
+    video_path = "b_1a4411B7sb_clip_005.mp4"  # Your video file
     
     # Your multiple choice question
-    question = "What is the main action in this video?"
+    question = "Which factors might have contributed to the accident?"
     choices = [
-        "A. A person is cooking",
-        "B. A person is walking",
-        "C. A person is reading",
-        "D. A person is sleeping"
-    ]
-    correct_answer = "A"  # The correct answer for comparison
+        "Traffic congestion",
+        "Bad road surfaces",
+        "Others",
+        "Fatigue driving"
+      ],
+    correct_answer = "C"  # The correct answer for comparison
     # =======================================
     
     # Check if video exists
@@ -121,6 +121,7 @@ def main():
         model_base=None,
         model_name="videochat-flash",
         device_map="auto",
+        multimodal=True,
         torch_dtype=torch.float16
     )
     model.eval()
