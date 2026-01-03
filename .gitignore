@@ -13,7 +13,6 @@ BLEURT-20/
 LLaVA-NeXT/
 outputs/
 outputs_tmux/
-VideoChat-Flash/
 .streamlit/secrets.toml
 yolo11n.pt
 sutd-traffic-video-qa/
