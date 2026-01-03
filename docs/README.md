@@ -132,7 +132,6 @@ VideoChat vs Llava-NeXt
 - Databset issues: mislabeled answers, ambiguous questions
 - Model issues: difficulty understanding temporal dynamics, complex reasoning
 
-## Video Captioning?
+## YOLO bounding boxes Impact on the Accuracy
 
-
-## 
+## Llava-NeXt vs VideoChat-Flash Architecture Impact on the Accuracy

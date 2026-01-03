@@ -16,6 +16,7 @@ outputs_tmux/
 VideoChat-Flash/
 .streamlit/secrets.toml
 yolo11n.pt
+sutd-traffic-video-qa/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

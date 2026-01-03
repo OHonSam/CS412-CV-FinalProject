@@ -110,6 +110,7 @@ def _load_model(device: str = "cuda:7", quantization: str = "4bit"):
 
 def choose_answer(
     question: str,
+    question_type: str,
     choices: list[str],
     keyframes: list,
     top_k_frames: list = None,
@@ -179,53 +180,42 @@ def choose_answer(
 
     # Prepare the optimized prompt for dashcam traffic scenarios
     full_question = f"""
-    You are a traffic-scene reasoning assistant for SUTD-TrafficQA. The images are ordered in time (earliest → latest).
-    Your job is to answer a MULTIPLE-CHOICE question by selecting the single best option.
+    You are an expert traffic safety analyst and intelligent video reasoning assistant. The images are ordered in time (earliest to latest). You must determine the correct answer by applying one of six specific reasoning capabilities:
 
-    SUTD-TrafficQA contains 6 reasoning task types:
-    1) Basic Understanding: identify objects/attributes/actions/counts and simple event relations.
-    2) Attribution: explain the cause(s) of an event/accident (the underlying factors).
-    3) Event Forecasting: predict what will happen next / the likely outcome.
-    4) Reverse Reasoning: infer what happened BEFORE the shown segment (antecedent events).
-    5) Counterfactual Inference: reason about a hypothetical "if" condition that did NOT occur.
-    6) Introspection: choose preventive / safer actions that could avoid an accident/congestion.
-    (Use the task type that best matches the question; do NOT output the task type.) 
-    These task types match the benchmark design. 
-
-    EVIDENCE RULES (important):
-    - Use ONLY visual evidence from the image sequence + basic traffic rules/physics.
-    - If a choice claims "there is no X" / "no accident" / "no barrier", verify presence/absence across ALL frames.
-    - Prefer the option most consistent with the full temporal sequence (not a single frame).
-    - If two options seem plausible, choose the one best supported by visible causality/timing.
-    - Only answer based on what you can CLEARLY see in the video
-    - Do not guess or assume events that are not clearly visible
-
-    TASK-SPECIFIC CHECKLIST (do silently):
-    A) Basic Understanding:
+    TASK TYPES:
+    1) Basic Understanding(U): Perceive and recognize basic object attributes, road environments, and traffic states.
     - Identify road type/scene (lanes, markings, signs, intersection), agents (cars/peds/bikes), counts, positions.
     - Confirm any queried attribute by checking multiple frames.
 
-    B) Attribution (WHY did it happen?):
+    2) Attribution(A): Identify the causes, types, and locations of traffic events or accidents.
     - Find the earliest mistake/trigger that plausibly causes the outcome (illegal lane change, tailgating, sudden brake, red-light, obstruction, etc.).
     - Choose the most direct cause supported by the sequence, not generic priors.
 
-    C) Event Forecasting (WHAT will happen?):
+    3) Event Forecasting(F): Predict future events, impending collisions, or potential risks based on current dynamics track lines.
     - Use trajectories: relative speed, closing distance, lane alignment, right-of-way, available space.
     - Decide if collision/near-miss/merge/brake is likely given motion trends.
 
-    D) Reverse Reasoning (WHAT happened earlier?):
+    4) Reverse Reasoning(R): Infer the state of traffic or the sequence of events that occurred before the observed situation (antecedents).
     - Infer prior events from current state (vehicle stopped position, damage, skid/avoidance, unusual lane position).
     - Choose the option that best explains how the scene got into the observed state.
 
-    E) Counterfactual Inference (WHAT IF ...):
+    5) Counterfactual Inference(C): Reason about hypothetical "what-if" scenarios to determine if an outcome would change under different conditions.
     - Treat the "if" condition as a change to the scene; mentally simulate the most likely outcome under traffic rules/physics.
     - Decide whether the hypothetical would remove the cause, add space/time, or still lead to the event.
 
-    F) Introspection (HOW to prevent?):
+    6) Introspection(I): Evaluate preventive measures and determining if specific actions or infrastructure changes could have avoided the accident.
     - Pick the safest feasible preventive action BEFORE the critical moment (slow down, keep lane, increase distance, yield, earlier braking, etc.).
     - Prefer actions that directly interrupt the causal chain seen in the video.
 
+    EVIDENCE RULES (important):
+    - Do not guess or assume events that are not clearly visible. Use ONLY visual evidence from the frame sequence + basic traffic rules/physics.
+    - If a choice claims "there is no X" / "no accident" / "no barrier", verify presence/absence across ALL frames.
+    - Prefer the option most consistent with the full temporal sequence (not a single frame).
+    - Always ground your choice in specific visual cues (positions, speeds, signals, distances, trajectories).
+
     Now answer:
+
+    Question Type: {question_type}
 
     Question: {question}
 
@@ -421,7 +411,8 @@ def process_dataset(
         record_id = item[0]
         vid_filename = item[2]
         q_body = item[4]
-        choices = [item[5], item[6], item[7], item[8]]
+        q_type = item[5]
+        choices = [item[6], item[7], item[8], item[9]]
         logger.debug(f"Processing video: {vid_filename} with record_id: {record_id}")
 
         # Construct video path
@@ -453,6 +444,7 @@ def process_dataset(
             # Get answer
             answer_index = choose_answer(
                 question=q_body, 
+                question_type=q_type,
                 choices=choices, 
                 keyframes=keyframes, 
                 device=device,

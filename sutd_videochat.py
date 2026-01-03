@@ -2,10 +2,9 @@ from transformers import AutoModel, AutoTokenizer
 import torch
 import json
 import os
+import pandas as pd
 from tqdm import tqdm
 from torchvision import transforms as T
-
-os.environ["HF_HOME"] = "/datastore/clc_hcmus/ZaAIC/hf_cache"
 
 # model setting
 model_path = 'OpenGVLab/VideoChat-Flash-Qwen2_5-2B_res448'
@@ -39,9 +38,9 @@ generation_config = dict(
 )
 
 # Load test questions (JSONL format)
-test_jsonl_path = "SUTD/questions/R3_test_100.jsonl"
-video_base_path = "SUTD/videos"
-output_json_path = "SUTD/questions/R3_test_with_answers.json"
+test_jsonl_path = "/kaggle/input/sutd-traffic-video-qa/questions/questions/R2_test.jsonl"
+video_base_path = "/kaggle/input/sutd-traffic-video-qa/videos/SUTD/videos"
+output_json_path = "/kaggle/working/sutd_test_with_answers_video_chat.json"
 
 print(f"Loading questions from {test_jsonl_path}")
 
@@ -63,8 +62,9 @@ with open(test_jsonl_path, "r") as f:
             "vid_filename": row[2],
             "perspective": row[3],
             "question": row[4],
-            "options": [row[5], row[6], row[7], row[8]],
-            "answer": row[9]
+            "question_type": row[5],
+            "options": [row[6], row[7], row[8], row[9]],
+            "answer": row[10]
         })
 
 print(f"Total questions: {len(test_data)}")
@@ -165,13 +165,21 @@ final_accuracy = correct / total * 100 if total > 0 else 0
 
 # Save results
 print(f"\nSaving results to {output_json_path}")
-with open(output_json_path, "w") as f:
-    json.dump({
-        "accuracy": final_accuracy,
-        "correct": correct,
-        "total": total,
-        "results": results
-    }, f, indent=2, ensure_ascii=False)
+# with open(output_json_path, "w") as f:
+#     json.dump({
+#         "accuracy": final_accuracy,
+#         "correct": correct,
+#         "total": total,
+#         "results": results
+#     }, f, indent=2, ensure_ascii=False)
+
+# Save results as csv for easier analysis
+df_results = pd.DataFrame(results)
+# Keep record_id,vid_filename,answer -> id,filename,answer
+df_results = df_results[["record_id", "vid_filename", "model_answer_idx", "answer", "is_correct"]]
+# Rename columns
+df_results.columns = ["id", "filename", "answer", "gt_answer", "is_correct"]
+df_results.to_csv(output_json_path.replace(".json", ".csv"), index=False)
 
 # Print final statistics
 print(f"\n{'='*50}")
