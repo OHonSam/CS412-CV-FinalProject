@@ -42,5 +42,5 @@ with open(train_dataset_path, 'r', encoding='utf-8') as f:
 
 total = sum(question_type_count.values())
 for q_type, count in question_type_count.items():
-    print(f"Question Type: {q_type}, Question Type Name: {question_type_name[q_type]}, Count: {count}")
+    print(f"Question Type: {q_type}, Question Type Name: {question_type_name[q_type]}, Count: {count}, Percentage: {count/total:.4f}")
 print(f"Total Questions: {total}")
