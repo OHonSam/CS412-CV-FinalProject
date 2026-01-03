@@ -15,6 +15,7 @@ outputs/
 outputs_tmux/
 VideoChat-Flash/
 .streamlit/secrets.toml
+yolo11n.pt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
