@@ -1,4 +1,5 @@
 from PIL import Image
+import numpy as np
 from llava.model.builder import load_pretrained_model
 from llava.mm_utils import tokenizer_image_token
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
@@ -9,7 +10,6 @@ from tqdm import tqdm
 from src.extract_keyframes import extract_keyframes
 from loguru import logger
 from transformers import BitsAndBytesConfig
-import numpy as np
 import pandas as pd
 import av
 import torch
@@ -19,7 +19,7 @@ import gc
 import os
 import json
 import traceback
-import torchvision.transforms as T
+import re
 
 warnings.filterwarnings("ignore")
 
@@ -28,97 +28,71 @@ _tokenizer = None
 _image_processor = None
 _current_device = None
 
-os.environ["HF_HOME"] = "/datastore/clc_hcmus/ZaAIC/hf_cache"
+def _load_model(device: str = "cuda:0", quantize: str = "4bit"):
+    """Load the LLaVA-Video model with optional quantization.
 
-def get_dashcam_augmentation():
-    return T.Compose(
-        [
-            T.ToTensor(),
-            T.ColorJitter(
-                brightness=0.3,    # Handle night/day variations
-                contrast=0.3,      # Handle fog/rain/glare
-                saturation=0.2,    # Handle washed-out colors
-                hue=0.1            # Minor color shifts
-            ),
-            T.RandomAdjustSharpness(sharpness_factor=1.5, p=0.3),  # Handle rain blur
-            T.RandomAutocontrast(p=0.2),  # Handle low contrast scenes
-            T.ToPILImage(),
-        ]
-    )
+    IMPORTANT (bitsandbytes):
+      - Do NOT pass device_map="cuda:X" for 4/8-bit models. That triggers accelerate to call model.to(...),
+        which raises: `.to` is not supported for 4-bit/8-bit bitsandbytes models.
+      - Use device_map="auto" and (recommended) select GPU via CUDA_VISIBLE_DEVICES.
 
-def _load_model(device: str = "cuda:7", quantization: str = "4bit"):
-    """Load the LLaVA-Video model with quantization (singleton pattern).
-
-    Model is kept in memory across multiple video processing for efficiency.
-    
-    Args:
-        device (str): Device to load model on
-        quantization (str): Quantization mode - "4bit", "8bit", or None for full precision
+    Recommended usage (single GPU #7):
+      CUDA_VISIBLE_DEVICES=7 python llava_next_sutd_quantized_fixed.py --device cuda:0 --quantize 4bit ...
     """
-    global _model, _processor, _tokenizer, _image_processor, _current_device
+    global _model, _tokenizer, _image_processor, _current_device
 
-    if _model is None or _current_device != device:
+    if _model is None or _current_device != (device, quantize):
         if _model is not None:
-            # Clean up previous model to free memory
             del _model
             gc.collect()
-            torch.cuda.empty_cache()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
 
-        print(f"Loading LLaVA-Video model with {quantization} quantization...")
+        print("Loading LLaVA-Video model...")
         pretrained = "lmms-lab/LLaVA-Video-7B-Qwen2"
         model_name = "llava_qwen"
 
-        # Configure quantization
-        if quantization == "4bit":
+        quantization_config = None
+        if quantize == "4bit":
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.bfloat16,
+                bnb_4bit_compute_dtype=torch.float16,
                 bnb_4bit_use_double_quant=True,
-                bnb_4bit_quant_type="nf4"
+                bnb_4bit_quant_type="nf4",
             )
-            torch_dtype = torch.bfloat16
-        elif quantization == "8bit":
-            quantization_config = BitsAndBytesConfig(
-                load_in_8bit=True,
-                llm_int8_threshold=6.0,
-            )
-            torch_dtype = torch.bfloat16
-        else:
-            quantization_config = None
-            torch_dtype = "bfloat16"
+        elif quantize == "8bit":
+            quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 
-        # Load model with quantization config
+        device_map = "auto" if quantization_config is not None else device
+
         _tokenizer, _model, _image_processor, max_length = load_pretrained_model(
             pretrained,
             None,
             model_name,
-            torch_dtype=torch_dtype,
-            device_map="auto",
+            torch_dtype=torch.float16,
+            device_map=device_map,
             quantization_config=quantization_config,
+            attn_implementation="sdpa",
         )
 
-        # DO NOT use .to() for quantized models - device_map handles placement
-        # The model is already on the correct device via device_map parameter
-        
         _model.eval()
-        _current_device = device
-        print(f"\nFinal VRAM usage: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
-        print(f"Peak VRAM usage: {torch.cuda.max_memory_allocated() / 1024**3:.2f} GB")
+        _current_device = (device, quantize)
+        print("LLaVA-Video model loaded successfully")
 
     return _tokenizer, _model, _image_processor
 
 
 def choose_answer(
     question: str,
-    question_type: str,
     choices: list[str],
     keyframes: list,
     top_k_frames: list = None,
     relevant_law_sections: list = None,
     keyframe_descriptions: list = None,
     output_path: str = None,
-    device: str = "cuda:7",
-    quantization: str = "4bit"
+    device: str = "cuda:0",
+    quantize: str = "4bit",
+    max_new_tokens: int = 4,
 ) -> int:
     """Choose the best answer index based on provided information.
 
@@ -135,20 +109,20 @@ def choose_answer(
         int: Index of the selected answer choice.
     """
     # Load model
-    tokenizer, model, image_processor = _load_model(device=device, quantization=quantization)
-    model_device = next(model.parameters()).device
+    tokenizer, model, image_processor = _load_model(device=device, quantize=quantize)
 
-    if quantization in ["4bit", "8bit"]:
-        compute_dtype = torch.float16  
-    else:
-        compute_dtype = torch.bfloat16
+    # Use the model's actual device for inputs (important for quantization / device_map)
+    try:
+        model_device = model.get_input_embeddings().weight.device
+    except Exception:
+        model_device = next(model.parameters()).device
+    model_dtype = torch.float16
 
     # Load images from keyframe paths
     images = []
     for keyframe_path in keyframes:
         try:
             img = Image.open(keyframe_path).convert("RGB")
-            img = get_dashcam_augmentation()(img)
             images.append(np.array(img))
         except Exception as e:
             print(f"Warning: Failed to load image {keyframe_path}: {e}")
@@ -162,10 +136,8 @@ def choose_answer(
     video_frames = np.stack(images)
 
     # Preprocess frames
-    video = (
-        image_processor.preprocess(video_frames, return_tensors="pt")["pixel_values"]
-        .to(model_device, dtype=compute_dtype)
-    )
+    video = image_processor.preprocess(video_frames, return_tensors="pt")["pixel_values"]
+    video = video.to(device=model_device, dtype=model_dtype)
     video = [video]
 
     # Determine number of choices and format accordingly
@@ -179,56 +151,19 @@ def choose_answer(
     choice_letters = [str(i) for i in range(num_choices)]
 
     # Prepare the optimized prompt for dashcam traffic scenarios
-    full_question = f"""
-    You are an expert traffic safety analyst and intelligent video reasoning assistant. The images are ordered in time (earliest to latest). You must determine the correct answer by applying one of six specific reasoning capabilities:
-
-    TASK TYPES:
-    1) Basic Understanding(U): Perceive and recognize basic object attributes, road environments, and traffic states.
-    - Identify road type/scene (lanes, markings, signs, intersection), agents (cars/peds/bikes), counts, positions.
-    - Confirm any queried attribute by checking multiple frames.
-
-    2) Attribution(A): Identify the causes, types, and locations of traffic events or accidents.
-    - Find the earliest mistake/trigger that plausibly causes the outcome (illegal lane change, tailgating, sudden brake, red-light, obstruction, etc.).
-    - Choose the most direct cause supported by the sequence, not generic priors.
-
-    3) Event Forecasting(F): Predict future events, impending collisions, or potential risks based on current dynamics track lines.
-    - Use trajectories: relative speed, closing distance, lane alignment, right-of-way, available space.
-    - Decide if collision/near-miss/merge/brake is likely given motion trends.
-
-    4) Reverse Reasoning(R): Infer the state of traffic or the sequence of events that occurred before the observed situation (antecedents).
-    - Infer prior events from current state (vehicle stopped position, damage, skid/avoidance, unusual lane position).
-    - Choose the option that best explains how the scene got into the observed state.
-
-    5) Counterfactual Inference(C): Reason about hypothetical "what-if" scenarios to determine if an outcome would change under different conditions.
-    - Treat the "if" condition as a change to the scene; mentally simulate the most likely outcome under traffic rules/physics.
-    - Decide whether the hypothetical would remove the cause, add space/time, or still lead to the event.
-
-    6) Introspection(I): Evaluate preventive measures and determining if specific actions or infrastructure changes could have avoided the accident.
-    - Pick the safest feasible preventive action BEFORE the critical moment (slow down, keep lane, increase distance, yield, earlier braking, etc.).
-    - Prefer actions that directly interrupt the causal chain seen in the video.
-
-    EVIDENCE RULES (important):
-    - Do not guess or assume events that are not clearly visible. Use ONLY visual evidence from the frame sequence + basic traffic rules/physics.
-    - If a choice claims "there is no X" / "no accident" / "no barrier", verify presence/absence across ALL frames.
-    - Prefer the option most consistent with the full temporal sequence (not a single frame).
-    - Always ground your choice in specific visual cues (positions, speeds, signals, distances, trajectories).
-
-    Now answer:
-
-    Question Type: {question_type}
-
-    Question: {question}
-
-    Choices:
-    {choices_text}
-
-    Output format:
-    - Respond with ONLY the number/letter from ({letter_options}) corresponding to your chosen option.
-    - No explanation, no extra text.
-
-    Answer:
-    """.strip()
-
+    full_question = (
+        f"You are analyzing dashcam footage from a vehicle. "
+        f"Carefully examine the sequence of images showing the traffic situation.\n\n"
+        f"Question: {question}\n\n"
+        f"Choices:\n{choices_text}\n\n"
+        f"Instructions:\n"
+        f"- Analyze the traffic signs, road markings, vehicle positions, and traffic conditions in the images\n"
+        f"- Consider traffic laws and road safety regulations\n"
+        f"- Select the most appropriate answer based on the visual evidence\n"
+        f"- Respond with ONLY the number ({letter_options}) of your chosen answer\n"
+        f"- Do not provide explanations or additional text\n\n"
+        f"Answer:"
+    )
 
     # Build conversation
     conv_template = "qwen_1_5"
@@ -256,7 +191,7 @@ def choose_answer(
             modalities=["video"],
             do_sample=False,
             temperature=0,
-            max_new_tokens=128,
+            max_new_tokens=max_new_tokens,
         )
 
     # Decode response
@@ -269,27 +204,21 @@ def choose_answer(
     gc.collect()
     torch.cuda.empty_cache()
 
-    # Parse the answer - prioritize exact letter matches at the start
-    text_output_upper = text_output.upper()
+        # Parse answer robustly (avoid picking up incidental numbers like counts)
+    text_output = text_output.strip()
 
-    # First, check if response starts with a valid letter
-    if text_output_upper and text_output_upper[0] in choice_letters:
-        return choice_letters.index(text_output_upper[0])
+    # Prefer patterns like "Answer: 2"
+    m = re.search(r"(?i)answer\s*[:\-]?\s*([0-3])\b", text_output)
+    if m:
+        return int(m.group(1))
 
-    # Check first 10 characters for valid letters
-    for i, choice_letter in enumerate(choice_letters):
-        if choice_letter in text_output_upper[:10]:
-            return i
+    # Otherwise take the last standalone digit among {0,1,2,3}
+    hits = re.findall(r"\b([0-3])\b", text_output)
+    if hits:
+        return int(hits[-1])
 
-    # Try to match with choice text
-    for i, choice in enumerate(choices):
-        if choice.lower() in text_output.lower():
-            return i
-
-    # Default to first choice if parsing fails
-    print("Warning: Could not parse answer from model output, returning default 0")
+    print(f"Warning: Could not parse answer from model output: {text_output!r}. Returning default 0")
     return 0
-
 
 def read_video_pyav(container, indices):
     """
@@ -354,8 +283,9 @@ def process_dataset(
     output_dir: str,
     num_frames: int = 8,
     katna_extraction: bool = False,
-    device: str = "cuda:7",
-    quantization: str = "4bit",
+    device: str = "cuda:0",
+    quantize: str = "4bit",
+    max_new_tokens: int = 4,
     mode="test",
 ):
     """Process all videos in dataset and generate answers.
@@ -363,19 +293,16 @@ def process_dataset(
     Args:
         video_dir (str): Directory containing videos
         questions_path (str): Path to questions JSON file
-        keyframe_dir (str): Directory for keyframes
         output_dir (str): Directory to save output
         num_frames (int): Number of frames to extract per video
-        katna_extraction (bool): Use Katna for extraction
-        device (str): Device to run on
-        quantization (str): Quantization mode - "4bit", "8bit", or None
-        mode (str): Dataset mode
     """
     # Load questions
     questions_data = []
 
     with open(questions_path, "r", encoding="utf-8") as f:
         for line_num, line in enumerate(f):
+            # if line_num > 100:
+            #     break
             if line.strip():
                 try:
                     data = json.loads(line)
@@ -411,8 +338,7 @@ def process_dataset(
         record_id = item[0]
         vid_filename = item[2]
         q_body = item[4]
-        q_type = item[5]
-        choices = [item[6], item[7], item[8], item[9]]
+        choices = [item[5], item[6], item[7], item[8]]
         logger.debug(f"Processing video: {vid_filename} with record_id: {record_id}")
 
         # Construct video path
@@ -422,7 +348,7 @@ def process_dataset(
             print(f"Warning: Video not found: {video_path}")
             record_ids.append(record_id)
             file_names.append(vid_filename)
-            answers.append("0")
+            answers.append("0")  # Default answer for missing video
             validity_flags.append(False)
             continue
 
@@ -443,12 +369,12 @@ def process_dataset(
 
             # Get answer
             answer_index = choose_answer(
-                question=q_body, 
-                question_type=q_type,
-                choices=choices, 
-                keyframes=keyframes, 
+                question=q_body,
+                choices=choices,
+                keyframes=keyframes,
                 device=device,
-                quantization=quantization
+                quantize=quantize,
+                max_new_tokens=max_new_tokens,
             )
 
             answer_letter = str(answer_index)
@@ -470,7 +396,7 @@ def process_dataset(
             traceback.print_exc()
             record_ids.append(record_id)
             file_names.append(vid_filename)
-            answers.append("0")
+            answers.append("0")  # Default answer on error
             validity_flags.append(False)
 
     # Save results
@@ -496,19 +422,19 @@ def process_dataset(
 
 if __name__ == "__main__":
     parser = ArgumentParser(
-        description="Process video dataset and generate answers using LLaVA-Video with quantization."
+        description="Process video dataset and generate answers using LLaVA-NeXT."
     )
     parser.add_argument(
         "--video_dir",
         type=str,
         required=True,
-        help="Path to the input video directory",
+        help="Path to the input video directory (e.g., ./HAD/videos/test/)",
     )
     parser.add_argument(
         "--questions_path",
         type=str,
         required=True,
-        help="Path to the questions JSON file",
+        help="Path to the questions JSON file (e.g., ./HAD/questions/test.json)",
     )
     parser.add_argument(
         "--output_dir",
@@ -540,17 +466,23 @@ if __name__ == "__main__":
         help="Dataset mode: train, val, or test (default: test)",
     )
     parser.add_argument(
+    "--quantize",
+    type=str,
+    default="4bit",
+    choices=["none", "4bit", "8bit"],
+    help="Quantization mode. NOTE: for 4/8-bit, set CUDA_VISIBLE_DEVICES to select GPU.",
+)
+    parser.add_argument(
+    "--max_new_tokens",
+    type=int,
+    default=4,
+    help="Max tokens to generate (keep small for MCQ to save VRAM).",
+)
+    parser.add_argument(
         "--device",
         type=str,
-        default="cuda:0",
-        help="Device to run the model on (default: cuda:0)",
-    )
-    parser.add_argument(
-        "--quantization",
-        type=str,
-        default="4bit",
-        choices=["4bit", "8bit", "none"],
-        help="Quantization mode: 4bit, 8bit, or none (default: 4bit)",
+        default="cuda:7",
+        help="Device to run the model on (default: cuda)",
     )
 
     args = parser.parse_args()
@@ -558,11 +490,7 @@ if __name__ == "__main__":
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Set quantization to None if "none" is specified
-    quant_mode = None if args.quantization == "none" else args.quantization
-
-    # Pre-load model
-    _load_model(device=args.device, quantization=quant_mode)
+    _load_model(device=args.device, quantize=args.quantize)
 
     # Process dataset
     process_dataset(
@@ -573,13 +501,10 @@ if __name__ == "__main__":
         num_frames=args.num_frames,
         katna_extraction=args.katna_extraction,
         device=args.device,
-        quantization=quant_mode,
+        quantize=args.quantize,
+        max_new_tokens=args.max_new_tokens,
         mode=args.mode,
     )
 
-# Example usage with 4-bit quantization:
-# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_4bit/ --keyframe_dir ./SUTD/keyframes/ --device cuda:0 --num_frames 8 --mode test --quantization 4bit
 
-# Example usage with 8-bit quantization:
-# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_8bit/ --keyframe_dir ./SUTD/keyframes/ --device cuda:0 --num_frames 8 --mode test --quantization 8bit
-# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_8bit_new_prompt/ --keyframe_dir ./SUTD/keyframes/ --device cuda:0 --num_frames 8 --mode test --quantization 8bit
+# python llava_next_sutd_quantized.py --video_dir ./SUTD/videos/ --questions_path ./SUTD/questions/R3_test.jsonl --output_dir ./SUTD/outputs_quantized/ --keyframe_dir ./SUTD/keyframes/ --device cuda:3 --num_frames 8 --mode test

@@ -23,7 +23,7 @@ st.set_page_config(layout="wide", page_title="Wrong Answer Inspector (Video → 
 # =========================
 @st.cache_data
 def load_data():
-    csv_path = os.path.join("answers", "sutd_wrong_ans_64_frames.csv")
+    csv_path = os.path.join("answers", "sutd_llava_next_wrong_ans_8_frames.csv")
     if not os.path.exists(csv_path):
         return pd.DataFrame()
 
@@ -275,7 +275,7 @@ current_id = int(st.session_state.selected_record)
 row = df.loc[df["id"] == current_id].iloc[0]
 
 fname = row["filename"] if pd.notna(row.get("filename")) else row.get("vid_filename", "")
-video_path = os.path.join("SUTD", "videos", str(fname))
+video_path = os.path.join("videos", str(fname))
 video_exists = bool(fname) and os.path.exists(video_path)
 
 # Guess MIME from extension; default mp4

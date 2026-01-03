@@ -145,4 +145,5 @@ if __name__ == "__main__":
 # python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video_64_frames.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
 # python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
 
-# python .\evaluate_answer.py --gt_path .\sutd_test_gt.csv --pred_path .\sutd_test_with_answers_llava_video_8_frames_katna.csv --wrong_path .\sutd_wrong_ans_64_frames.csv
+# python .\evaluate_answer.py --gt_path .\answers\sutd_test_gt.csv --pred_path .\answers\sutd_cnn_lstm_predictions.csv --wrong_path .\sutd_cnn_lstm_wrong_ans.csv
+# python .\src\evaluate_answer.py --gt_path .\answers\sutd_test_gt.csv --pred_path .\answers\sutd_test_with_answers_video_chat_yolo_no_prompting.csv --wrong_path .\answers\sutd_videochat_wrong_ans_yolo_no_prompting.csv

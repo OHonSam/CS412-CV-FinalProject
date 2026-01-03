@@ -14,6 +14,8 @@ LLaVA-NeXT/
 outputs/
 outputs_tmux/
 .streamlit/secrets.toml
+yolo11n.pt
+sutd-traffic-video-qa/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
